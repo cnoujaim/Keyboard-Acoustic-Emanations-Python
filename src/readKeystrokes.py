@@ -38,7 +38,7 @@ def silence_threshold(sound_data, n=5, factor=11, output=True):
     sampling_rate = 44100
     num_samples   = sampling_rate * n
     silence       = sound_data[:num_samples]
-    tolerance     = 40
+    tolerance     = 47
     measured      = np.std(silence)
     if output and measured > tolerance:
         # raise Exception(f'Sound data must begin with at least {n}s of silence.')
@@ -86,7 +86,7 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True):
     """
     print("------- DETECT KEYSTROKE --------")
     threshold          = silence_threshold(sound_data, output=output)
-    keystroke_duration = 0.3   # seconds
+    keystroke_duration = 0.05   # seconds
     len_sample         = int(sample_rate * keystroke_duration)
 
     keystrokes = []
@@ -190,7 +190,7 @@ def visualize_keystrokes(filepath):
 
 
 def main():
-    visualize_keystrokes("recordings/testing2.wav")
+    visualize_keystrokes("recordings/testing4.wav")
 
 
 
