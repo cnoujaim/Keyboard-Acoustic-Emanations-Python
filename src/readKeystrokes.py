@@ -38,7 +38,7 @@ def silence_threshold(sound_data, n=5, factor=11, output=True):
     sampling_rate = 44100
     num_samples   = sampling_rate * n
     silence       = sound_data[:num_samples]
-    tolerance     = 47
+    tolerance     = 85.52671939449968
     measured      = np.std(silence)
     if output and measured > tolerance:
         # raise Exception(f'Sound data must begin with at least {n}s of silence.')
@@ -109,7 +109,7 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True):
 
 def detect_keystrokes_improved(sound_data, sample_rate=44100):
     """Return slices of sound_data that denote each keystroke present.
-    
+
     Objective:
     - Satisfy same functional requirements as 'detect_keystrokes()', but better
     - Create a more accurate and flexible keystroke detection function
@@ -139,58 +139,8 @@ def visualize_keystrokes(filepath):
     plt.show()
 
 
-# # Data collection (multiple WAV files -> ALL keystroke data)
-
-# def collect_keystroke_data(filepath_base='datasets/keystrokes/',
-#                            keys=None,
-#                            output=False,
-#                            ignore=None):
-#     """Read WAV files and return collected data.
-#     Arguments:
-#     base_dir -- directory to search for audio files
-#     keys     -- list of key types to detect (corresponds to file names)
-#     output   -- True to display status messages during keystroke detection
-#     ignore   -- dict of filenames mapped to indices of keystrokes to ignore
-#     input format  -- WAV files in subdirectories of "base_dir"
-#     output format -- list of dicts where each dict denotes a single collected
-#                      keystroke. Formatted like:
-#                          list(dict(keys: key type, sound digest, sound data))
-#     """
-#     alphabet = [letter for letter in 'abcdefghijklmnopqrstuvwxyz']
-#     other_keys = ['space', 'period', 'enter']
-#     keys = keys or alphabet + other_keys
-
-#     collection = []
-#     for key in keys:
-#         filepath = filepath_base + key + '/'
-#         if output: print(f'> Reading files from {filepath} for key "{key}"')
-#         for file in os.listdir(filepath):
-#             if output:
-#                 print(f'  > Detecting keystrokes from "{file}"', end='')
-#             wav_data = wav_read(filepath + file)
-#             keystrokes = detect_keystrokes(wav_data, output=False)
-#             collected = 0
-#             for i in range(len(keystrokes)):
-#                 if ignore and file in ignore and i in ignore[file]:
-#                     continue
-#                 else:
-#                     keystroke = keystrokes[i]
-#                     data = {
-#                         'key_type': key,
-#                         'sound_digest': hash(keystroke[:30].tobytes()),
-#                         'sound_data': keystroke,
-#                     }
-#                     collection.append(data)
-#                     collected += 1
-#             if output: print(f' => Collected {collected} keystrokes')
-#     print('> Done')
-
-#     return collection
-
-
-
 def main():
-    visualize_keystrokes("recordings/testing4.wav")
+    visualize_keystrokes("recordings/testing6_phone_noise_reduced.wav")
 
 
 
