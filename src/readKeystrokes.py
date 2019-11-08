@@ -5,6 +5,8 @@ https://github.com/shoyo-inokuchi/acoustic-keylogger-research.
 """
 
 import os
+import sys
+
 from copy import deepcopy
 
 import numpy as np
@@ -140,8 +142,11 @@ def visualize_keystrokes(filepath):
 
 
 def main():
-    visualize_keystrokes("recordings/testing6_phone_noise_reduced.wav")
-
-
+    filepath = str(sys.argv[1])
+    outfile = os.path.join("out", "keystrokes", filepath.split("/")[-1] + "_out")
+    #visualize_keystrokes("recordings/testing6_phone_noise_reduced.wav")
+    wav_data = wav_read(filepath)
+    keystrokes = detect_keystrokes(wav_data)
+    np.savetxt(outfile, keystrokes)
 
 main()
