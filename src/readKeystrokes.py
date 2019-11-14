@@ -40,7 +40,7 @@ def silence_threshold(sound_data, n=5, factor=11, output=True):
     sampling_rate = 44100
     num_samples   = sampling_rate * n
     silence       = sound_data[:num_samples]
-    tolerance     = 85.52671939449968
+    tolerance     = 106
     measured      = np.std(silence)
     if output and measured > tolerance:
         # raise Exception(f'Sound data must begin with at least {n}s of silence.')
@@ -88,7 +88,7 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True):
     """
     print("------- DETECT KEYSTROKE --------")
     threshold          = silence_threshold(sound_data, output=output)
-    keystroke_duration = 0.05   # seconds
+    keystroke_duration = 0.03   # seconds
     len_sample         = int(sample_rate * keystroke_duration)
 
     keystrokes = []
@@ -106,6 +106,9 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True):
             keystrokes.append(keystroke)
             i = b - 1
         i += 1
+
+
+    print(f"Found {len(keystrokes)} keystrokes")
     return np.array(keystrokes)
 
 
@@ -128,7 +131,7 @@ def visualize_keystrokes(filepath):
     """Display each keystroke detected in WAV file specified by filepath."""
     wav_data = wav_read(filepath)
     keystrokes = detect_keystrokes(wav_data)
-    n = len(keystrokes)
+    n = 20
     print(f'Number of keystrokes detected in "{filepath}": {n}')
     print('Drawing keystrokes...')
     num_cols = 3
@@ -144,7 +147,6 @@ def visualize_keystrokes(filepath):
 def main():
     filepath = str(sys.argv[1])
     outfile = os.path.join("out", "keystrokes", filepath.split("/")[-1] + "_out")
-    #visualize_keystrokes("recordings/testing6_phone_noise_reduced.wav")
     wav_data = wav_read(filepath)
     keystrokes = detect_keystrokes(wav_data)
     np.savetxt(outfile, keystrokes)
