@@ -3,7 +3,7 @@ import sys
 import os
 
 import numpy as np
-from sklearn.cluster import SpectralClustering
+from sklearn.cluster import KMeans
 from librosa.feature import mfcc
 
 class ClassifyKeystrokes:
@@ -26,7 +26,6 @@ class ClassifyKeystrokes:
         return spec.flatten()
 
 
-
     def convert_keystrokes_to_features(self):
         '''Convert keystroke wav info to training information'''
         for keystroke in self.keystrokes:
@@ -35,9 +34,10 @@ class ClassifyKeystrokes:
 
         self.Xtrain = np.stack(self.Xtrain, axis=0)
 
+
     def cluster(self):
         '''Cluster keystroke information'''
-        clustering = SpectralClustering(n_clusters=30, assign_labels="discretize", random_state=0).fit(self.Xtrain)
+        clustering = KMeans(n_clusters=30,random_state=0).fit(self.Xtrain)
         print(clustering.labels_)
 
 
@@ -47,10 +47,6 @@ def main():
 
     classifier = ClassifyKeystrokes(infile)
 
-
-
-    with open(outfile, "w") as f:
-        f.write("ehllo my namm is crissina")
 
 
 main()
