@@ -37,7 +37,7 @@ class ClassifyKeystrokes:
 
     def cluster(self):
         '''Cluster keystroke information'''
-        clustering = KMeans(n_clusters=30,random_state=0).fit(self.Xtrain)
+        clustering = KMeans(n_clusters=30, random_state=0).fit(self.Xtrain)
         print(clustering.labels_)
 
 
