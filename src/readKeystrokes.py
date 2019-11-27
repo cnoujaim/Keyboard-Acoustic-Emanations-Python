@@ -37,16 +37,11 @@ def wav_read(filepath):
 
 # Sound preprocessing before keystroke detection
 
-def silence_threshold(sound_data, n=5, factor=11, output=True):
+def silence_threshold(sound_data, n=4, factor=11, output=True):
     """Return the silence threshold of the sound data.
     The sound data should begin with n-seconds of silence.
     """
-    sampling_rate = 44100
-    num_samples   = sampling_rate * n
-    silence       = sound_data[:num_samples]
-    print(np.amax(silence))
-
-    return np.amax(silence)
+    pass
 
 def detect_keystrokes(sound_data, sample_rate=44100, output=True):
     """Return slices of sound_data that denote each keystroke present.
@@ -57,12 +52,11 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True):
       utilizing more advanced audio processing techniques
     - Calculate MFCC etc. of sound_data to detect relevant peaks in sound
     """
-    threshold          = silence_threshold(sound_data, output=output)
     keystroke_duration = 0.05  # seconds
     len_sample         = int(sample_rate * keystroke_duration)
     keystrokes = []
 
-    peaks, properties = scipy.signal.find_peaks(sound_data,threshold=517, distance=len_sample)
+    peaks, properties = scipy.signal.find_peaks(sound_data,threshold=600, distance=len_sample)
     print(f"Found {len(peaks)} keystrokes in data")
 
     for i in peaks:
