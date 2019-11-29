@@ -53,18 +53,26 @@ class ClassifyKeystrokes:
     def hmm(self):
         '''Use HMM's to learn keystroke information'''
         print("Learning Hidden Markov Model...")
-        model = hmm.GaussianHMM(n_components=27, covariance_type="diag", n_iter=1000, init_params="st")
+        bestmodel = None
+        best = float("-inf")
         # Learn transition probabilities from tv corpora
-        transmat = self.getTransitionProb(model)
-        for i in range(20):
+        transmat = self.getTransitionProb()
+        for i in range(2):
             print(f"Run iteration {i}")
-            # model.transmat_ = transmat
+            model = hmm.GMMHMM(n_components=27, covariance_type="diag", n_iter=1000, init_params="mcs")
+            model.transmat_ = transmat
             model.fit(self.Xtrain)
             print(f"Log probabilitiy score is {model.score(self.Xtrain)}")
-        Z2 = model.predict(self.Xtrain)
-        print(Z2)
+            if model.score(self.Xtrain) > best:
+                best = model.score(self.Xtrain)
+                bestmodel = model
 
-    def getTransitionProb(self, model):
+        Z2 = bestmodel.predict(self.Xtrain)
+        print(Z2)
+        print(self.print_predict(Z2))
+
+
+    def getTransitionProb(self):
         '''Calculate transition probabilties from txtsrc'''
         print("Get Transition Probabilities...")
         t_prob_file = "out/raw_sentence/transitionprob.txt"
@@ -92,6 +100,17 @@ class ClassifyKeystrokes:
         if l == " ":
             return 26
         return ord(l) - ord('a')
+
+    def convertnumber(self, n):
+        if n == 26:
+            return " "
+        return chr(n + ord('a'))
+
+    def print_predict(self, output):
+        string = ""
+        for o in output:
+            string += self.convertnumber(o)
+        return string
 
 
 def main():

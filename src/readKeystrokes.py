@@ -6,6 +6,7 @@ https://github.com/shoyo-inokuchi/acoustic-keylogger-research.
 
 import os
 import sys
+import json
 
 from copy import deepcopy
 
@@ -43,7 +44,7 @@ def silence_threshold(sound_data, n=4, factor=11, output=True):
     """
     pass
 
-def detect_keystrokes(sound_data, sample_rate=44100, output=True):
+def detect_keystrokes(sound_data, sample_rate=44100, output=True, num_peaks = None, labels = None):
     """Return slices of sound_data that denote each keystroke present.
 
     Objective:
@@ -56,18 +57,23 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True):
     len_sample         = int(sample_rate * keystroke_duration)
     keystrokes = []
 
-    peaks, properties = scipy.signal.find_peaks(sound_data,threshold=600, distance=len_sample)
+    peaks, properties = scipy.signal.find_peaks(sound_data,threshold=500, distance=len_sample, prominence=1)
     print(f"Found {len(peaks)} keystrokes in data")
 
-    for i in peaks:
-        a, b = i, i + len_sample
+    if num_peaks:
+        ind = np.argpartition(properties["prominences"], -num_peaks)[-num_peaks:]
+        ind.sort()
+        peaks = peaks[ind]
+
+    for i, p in enumerate(peaks):
+        a, b = p, p + len_sample
         if b > len(sound_data):
             b = len(sound_data)
 
         keystroke = sound_data[a:b]
-        keystrokes.append(keystroke)
+        keystrokes.append((keystroke.tolist(), labels[i]))
 
-    return np.array(keystrokes)
+    return keystrokes
 
 
 # Display detected keystrokes (WAV file -> all keystroke graphs)
@@ -85,17 +91,33 @@ def visualize_keystrokes(filepath):
     for i in range(n):
         plt.subplot(num_rows, num_cols, i + 1)
         plt.title(f'Index: {i}')
-        plt.plot(keystrokes[i])
+        plt.plot(keystrokes[i][0])
     plt.show()
+
+
+def getLabels(txtpath):
+    if txtpath:
+        with open(txtpath, 'r') as file:
+            data = file.read().strip('\n')
+        return len(data), [char for char in data]
+    else:
+        return None, None
+
 
 
 def main():
     filepath = str(sys.argv[1])
+    txtpath = None
+    if len(sys.argv) > 2:
+        txtpath = str(sys.argv[2])
     outfile = os.path.join("out", "keystrokes", filepath.split("/")[-1] + "_out")
     wav_data = wav_read(filepath)
 
-    keystrokes = detect_keystrokes(wav_data)
-    np.savetxt(outfile, keystrokes)
-    visualize_keystrokes(filepath)
+    num_peaks, labels = getLabels(txtpath)
+
+    keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
+    with open(outfile, 'w') as f:
+        f.write(json.dumps(keystrokes))
+    # visualize_keystrokes(filepath)
 
 main()
