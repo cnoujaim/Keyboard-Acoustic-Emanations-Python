@@ -21,4 +21,3 @@ def generate_n_grams(word, n):
     return list(ngrams(tokens, n))
 
 print(generate_n_grams("Apple banana orange", 2))
-

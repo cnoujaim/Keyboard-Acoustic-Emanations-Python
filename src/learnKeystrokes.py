@@ -1,9 +1,10 @@
-
 import sys
 import os
 import datetime
 import re
 import sklearn
+import json
+import copy
 
 import numpy as np
 from sklearn.cluster import KMeans
@@ -16,11 +17,36 @@ class ClassifyKeystrokes:
     def __init__(self, files):
         self.keystrokes = []
         for file in files:
-            self.keystrokes.append(np.loadtxt(file))
-        self.keystrokes = np.vstack(self.keystrokes)
+            with open(file, "r") as f:
+                data = json.loads(f.read().strip('\n'))
+                data = [(self.extract_features(np.array(a)),  self.convertletter(b)) for (a, b) in data]
+                self.keystrokes.extend(data)
+
         self.Xtrain = []
+        self.ytrain = []
         self.convert_keystrokes_to_features()
-        self.hmm()
+
+        self.train()
+
+    def train(self, iters=20):
+        print("Training model...")
+        best_model = None
+        best_clus = None
+        best_acc = 0
+        for i in range(iters):
+            print(f"-- Run iteration {i} --")
+            clusters = self.cluster()
+            clusters = self.Xtrain  # np.reshape(clusters, (-1, 1))
+            model = self.hmm(clusters)
+            print(f"Log probability for this model is {model.score(clusters)}")
+            acc = self.accuracy(model, model.predict(clusters))
+            print(f"Accuracy for this model is {acc}")
+            if acc > best_acc:
+                best_acc = acc
+                best_model = copy.deepcopy(model)
+                best_clus = copy.deepcopy(clusters)
+
+        print(f"Prediction for this model is {self.print_predict(best_model.predict(best_clus))}")
 
 
     def extract_features(self, keystroke, sr=44100, n_mfcc=16, n_fft=441, hop_len=110):
@@ -36,40 +62,30 @@ class ClassifyKeystrokes:
 
     def convert_keystrokes_to_features(self):
         '''Convert keystroke wav info to training information'''
-        for keystroke in self.keystrokes:
-            feat = self.extract_features(keystroke)
+        for keystroke, label in self.keystrokes:
+            feat = self.extract_features(np.array(keystroke))
             self.Xtrain.append(feat)
+            self.ytrain.append(label)
 
         self.Xtrain = np.stack(self.Xtrain, axis=0)
-        # np.swapaxes(self.Xtrain, 0, 1)
 
 
     def cluster(self):
         '''Cluster keystroke information'''
         print("Learning Clusters...")
-        clustering = KMeans(n_clusters=30, random_state=0).fit(self.Xtrain)
-        print(clustering.labels_)
+        clustering = KMeans(n_clusters=50).fit(self.Xtrain)
+        return clustering.labels_
 
-    def hmm(self):
+    def hmm(self, clusters):
         '''Use HMM's to learn keystroke information'''
         print("Learning Hidden Markov Model...")
-        bestmodel = None
-        best = float("-inf")
         # Learn transition probabilities from tv corpora
         transmat = self.getTransitionProb()
-        for i in range(2):
-            print(f"Run iteration {i}")
-            model = hmm.GMMHMM(n_components=27, covariance_type="diag", n_iter=1000, init_params="mcs")
-            model.transmat_ = transmat
-            model.fit(self.Xtrain)
-            print(f"Log probabilitiy score is {model.score(self.Xtrain)}")
-            if model.score(self.Xtrain) > best:
-                best = model.score(self.Xtrain)
-                bestmodel = model
 
-        Z2 = bestmodel.predict(self.Xtrain)
-        print(Z2)
-        print(self.print_predict(Z2))
+        model = hmm.GaussianHMM(n_components=27, covariance_type="diag", n_iter=1000)
+        model.transmat_ = transmat
+        model.fit(clusters)
+        return model
 
 
     def getTransitionProb(self):
@@ -111,6 +127,16 @@ class ClassifyKeystrokes:
         for o in output:
             string += self.convertnumber(o)
         return string
+
+    def accuracy(self, model, prediction):
+        total = len(self.ytrain)
+        correct = 0
+        for i, p in enumerate(prediction):
+            if self.ytrain[i] == p:
+                correct += 1
+
+        return correct/total
+
 
 
 def main():
