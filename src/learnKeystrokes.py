@@ -49,7 +49,7 @@ class ClassifyKeystrokes:
         print(f"Prediction for this model is {self.print_predict(best_model.predict(best_clus))}")
 
 
-    def extract_features(self, keystroke, sr=44100, n_mfcc=16, n_fft=441, hop_len=110):
+    def extract_features(self, keystroke, sr=44100, n_mfcc=32, n_fft=220, hop_len=110):
         '''Return an MFCC-based feature vector for a given keystroke.'''
         spec = mfcc(y=keystroke.astype(float),
                     sr=sr,

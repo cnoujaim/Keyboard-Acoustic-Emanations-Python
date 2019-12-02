@@ -60,13 +60,16 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True, num_peaks = No
     peaks, properties = scipy.signal.find_peaks(sound_data,threshold=500, distance=len_sample, prominence=1)
     print(f"Found {len(peaks)} keystrokes in data")
 
-    if num_peaks:
+    if num_peaks and num_peaks < len(peaks):
         ind = np.argpartition(properties["prominences"], -num_peaks)[-num_peaks:]
         ind.sort()
         peaks = peaks[ind]
 
+    else:
+        labels = [None for i in range(len(peaks))]
+
     for i, p in enumerate(peaks):
-        a, b = p, p + len_sample
+        a, b = p, p + int(0.04 * sample_rate)
         if b > len(sound_data):
             b = len(sound_data)
 
@@ -91,7 +94,7 @@ def visualize_keystrokes(filepath):
     for i in range(n):
         plt.subplot(num_rows, num_cols, i + 1)
         plt.title(f'Index: {i}')
-        plt.plot(keystrokes[i][0])
+        plt.plot(np.array(keystrokes[i][0]))
     plt.show()
 
 
@@ -118,6 +121,6 @@ def main():
     keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
     with open(outfile, 'w') as f:
         f.write(json.dumps(keystrokes))
-    # visualize_keystrokes(filepath)
+    visualize_keystrokes(filepath)
 
 main()
