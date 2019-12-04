@@ -45,10 +45,18 @@ class KeyDataLoader(Dataset):
         return self.keystrokes[idx]
 
     def convertletter(self, l):
-        i = ord(l) - ord('a')
-        if i < 0 or i > 25:
-            i = 26
+        i = 0
+        if l == 'a':
+            i = 0
+        elif l == 'j':
+            i = 1
+        elif l == " ":
+            i = 2
         return torch.tensor(i).long()
+        # i = ord(l) - ord('a')
+        # if i < 0 or i > 25:
+        #     i = 26
+        # return torch.tensor(i).long()
 
     def extract_features(self, keystroke, sr=44100, n_mfcc=16, n_fft=220, hop_len=110):
         '''Return an MFCC-based feature vector for a given keystroke.'''
@@ -64,14 +72,17 @@ class KeyDataLoader(Dataset):
 class KeyNet(nn.Module):
     def __init__(self):
         super(KeyNet, self).__init__()
-        self.fc1 = nn.Linear(272, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, 27)
+        self.fc1 = nn.Linear(1408, 256)
+        self.fc2 = nn.Linear(256, 64)
+        self.fc3 = nn.Linear(64, 16)
+        self.fc4 = nn.Linear(16, 3)
+
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = F.relu(self.fc3(x))
+        x = self.fc4(x)
         return x
 
 
@@ -95,11 +106,17 @@ class ClassifyKeystrokes:
         self.trainloader = DataLoader(self.dataset, sampler=train_sampler)
         self.validloader = DataLoader(self.dataset, sampler=valid_sampler)
         self.net = KeyNet()
-        self.classify()
+        class3 = "None" #"out/raw_sentence/models/fc_nn_model_22:18:51.013168.txt"
+        if os.path.exists(class3):
+            self.net.load_state_dict(torch.load(class3))
+        else:
+            self.classify()
+            self.savemodel()
+
+        rand = KeyDataLoader(["out/keystrokes/jaj.wav_out"])
+        self.validloader = DataLoader(rand)
 
         self.validate()
-        self.validate_2()
-        self.savemodel()
 
     def classify(self):
         '''Classify keystrokes'''
@@ -108,7 +125,7 @@ class ClassifyKeystrokes:
         optimizer = optim.Adam(self.net.parameters(), lr=0.0001)
         best_acc = 0
         best_model = None
-        for epoch in range(30):  # loop over the dataset multiple times
+        for epoch in range(40):  # loop over the dataset multiple times
             running_loss = 0.0
             for i, data in enumerate(self.trainloader, 0):
                 # get the inputs; data is a list of [inputs, labels]
@@ -130,9 +147,8 @@ class ClassifyKeystrokes:
                           (epoch + 1, i + 1, running_loss / 200))
                     running_loss = 0.0
             running_acc = self.validate()
-            if running_acc > best_acc:
-                best_acc = running_acc
-                best_model = copy.deepcopy(self.net)
+            best_acc = running_acc
+            best_model = copy.deepcopy(self.net)
 
         self.net = best_model
         print('Finished Training')
@@ -145,13 +161,15 @@ class ClassifyKeystrokes:
                 images, labels = data
                 outputs = self.net(images)
                 # print(images)
+                # print(f"outputs {outputs}")
                 _, predicted = torch.max(outputs.data, 1)
+                # print(predicted)
                 total += 1
                 correct += (predicted == labels).sum().item()
 
         acc = 100 * correct / total
         print(f'Accuracy of the network on the {len(self.validloader)} test keys: {acc}%')
-        print(f'Percent increase: {(acc - (100/27))/(100/27) * 100}%')
+        # print(f'Percent increase: {(acc - (100/27))/(100/27) * 100}%')
         return acc
 
     def validate_2(self):

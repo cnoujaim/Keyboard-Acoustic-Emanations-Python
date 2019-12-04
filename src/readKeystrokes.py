@@ -74,23 +74,24 @@ def detect_keystrokes(sound_data, sample_rate=SAMPLE_RATE, output=True, num_peak
       utilizing more advanced audio processing techniques
     - Calculate MFCC etc. of sound_data to detect relevant peaks in sound
     """
-    keystroke_duration = 0.5  # seconds
+    keystroke_duration = 0.3  # seconds
     len_sample         = int(sample_rate * keystroke_duration)
     keystrokes = []
 
-    peaks = find_peaks(sound_data, threshold=3000, distance=len_sample)
+    peaks = find_peaks(sound_data, threshold=0.06, distance=len_sample)
     print(f"Found {len(peaks)} keystrokes in data")
 
     if not num_peaks:
-        labels = [None for i in range(len(peaks))]
+        labels = ['j', 'a', 'j', ' '] * 8
 
     for i, p in enumerate(peaks):
         p = p - 1440
-        a, b = p, p + int(0.1 * sample_rate)
+        a, b = p, p + int(0.2 * sample_rate)
         if b > len(sound_data):
             b = len(sound_data)
 
-        print(p / sample_rate)
+        print(p/SAMPLE_RATE)
+
         keystroke = sound_data[a:b]
         keystrokes.append((keystroke.tolist(), labels[i]))
 
@@ -112,13 +113,7 @@ def visualize_keystrokes(filepath):
     for i in range(min(n, len(keystrokes))):
         plt.subplot(num_rows, num_cols, i + 1)
         plt.title(f'Index: {i}')
-        f, t, Sxx = scipy.signal.spectrogram(np.array(keystrokes[i][0]))
-        plt.pcolormesh(t, f, Sxx)
-        plt.ylabel('Frequency [Hz]')
-        plt.xlabel('Time [sec]')
-        plt.show()
-        # plt.plot(np.array(keystrokes[i][0]))
-        # plt.plot(np.array(keystrokes[i + 5][0]))
+        plt.plot(np.array(keystrokes[i][0]))
     plt.show()
 
 
@@ -140,12 +135,12 @@ def main():
     outfile = os.path.join("out", "keystrokes", filepath.split("/")[-1] + "_out")
 
     wav_data = wav_read(filepath)
-    f, t, Sxx = scipy.signal.spectrogram(wav_data, fs=SAMPLE_RATE)
-    plt.pcolormesh(t, f, Sxx)
-    plt.ylabel('Frequency [Hz]')
-    plt.xlabel('Time [sec]')
-    plt.show()
-    
+    # f, t, Sxx = scipy.signal.spectrogram(wav_data, fs=SAMPLE_RATE)
+    # plt.pcolormesh(t, f, Sxx)
+    # plt.ylabel('Frequency [Hz]')
+    # plt.xlabel('Time [sec]')
+    # plt.show()
+
     x_axis = [(i/SAMPLE_RATE) for i in range(len(wav_data))]
     plt.plot(x_axis, wav_data)
     plt.show()
