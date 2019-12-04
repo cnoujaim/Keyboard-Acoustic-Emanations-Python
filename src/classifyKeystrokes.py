@@ -50,7 +50,7 @@ class KeyDataLoader(Dataset):
             i = 26
         return torch.tensor(i).long()
 
-    def extract_features(self, keystroke, sr=44100, n_mfcc=16, n_fft=441, hop_len=110):
+    def extract_features(self, keystroke, sr=44100, n_mfcc=16, n_fft=220, hop_len=110):
         '''Return an MFCC-based feature vector for a given keystroke.'''
         spec = mfcc(y=keystroke.astype(float),
                     sr=sr,
@@ -64,9 +64,9 @@ class KeyDataLoader(Dataset):
 class KeyNet(nn.Module):
     def __init__(self):
         super(KeyNet, self).__init__()
-        self.fc1 = nn.Linear(336, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 27)
+        self.fc1 = nn.Linear(272, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 27)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
@@ -95,10 +95,7 @@ class ClassifyKeystrokes:
         self.trainloader = DataLoader(self.dataset, sampler=train_sampler)
         self.validloader = DataLoader(self.dataset, sampler=valid_sampler)
         self.net = KeyNet()
-        if (os.path.exists("out/raw_sentence/models/fc_nn_model_19:08:49.99904.txt")):
-            self.net.load_state_dict(torch.load("out/raw_sentence/models/fc_nn_model_19:08:49.999014.txt"))
-        else:
-            self.classify()
+        self.classify()
 
         self.validate()
         self.validate_2()
@@ -111,7 +108,7 @@ class ClassifyKeystrokes:
         optimizer = optim.Adam(self.net.parameters(), lr=0.0001)
         best_acc = 0
         best_model = None
-        for epoch in range(100):  # loop over the dataset multiple times
+        for epoch in range(30):  # loop over the dataset multiple times
             running_loss = 0.0
             for i, data in enumerate(self.trainloader, 0):
                 # get the inputs; data is a list of [inputs, labels]
@@ -148,7 +145,6 @@ class ClassifyKeystrokes:
                 images, labels = data
                 outputs = self.net(images)
                 # print(images)
-                # print(outputs)
                 _, predicted = torch.max(outputs.data, 1)
                 total += 1
                 correct += (predicted == labels).sum().item()
@@ -172,6 +168,7 @@ class ClassifyKeystrokes:
                 _, predicted = torch.max(outputs.data, 1)
                 total += 1
                 ranking = np.argsort(outputs).numpy().tolist()[0][::-1]
+                print(ranking)
 
                 random += (self.freq_letters.index(label.item()) + 1)
                 correct += (ranking.index(label.item()) + 1)

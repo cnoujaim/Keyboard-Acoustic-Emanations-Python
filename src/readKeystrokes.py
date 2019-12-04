@@ -18,8 +18,28 @@ import sqlalchemy.orm as orm
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects import postgresql
 
+
 import scipy
 import scipy.signal
+
+SAMPLE_RATE = 48000
+BITS = 16.0
+
+
+def find_peaks(data, distance=1, threshold=3000):
+    peaks = []
+    i = 0
+    while i < len(data):
+        max_loc = np.argmax(data[i:i+distance]) + i
+        # print(max_loc / SAMPLE_RATE)
+        # print(data[max_loc])
+        if data[max_loc] > threshold:
+            peaks.append(max_loc)
+            i = max_loc + distance
+        else:
+            i += 1000
+
+    return peaks
 
 
 
@@ -30,21 +50,22 @@ def wav_read(filepath):
     Input should be a string containing the path to a wave-formatted audio file.
     """
     sample_rate, data = wav.read(filepath)
+    SAMPLE_RATE = sample_rate
     if type(data[0]) == np.ndarray:
-        return data[:, 0]
+        data = data[:, 0]
+        data = data.astype(np.float32)
+        data = (data / np.max(np.abs(data)))
+        data -= np.mean(data)
+        return  data #np.array(b)
     else:
-        return data
+        data = data.astype(np.float32)
+        data = (data / np.max(np.abs(data)))
+        data -= np.mean(data)
+        return  data #np.array(b)
 
 
-# Sound preprocessing before keystroke detection
 
-def silence_threshold(sound_data, n=4, factor=11, output=True):
-    """Return the silence threshold of the sound data.
-    The sound data should begin with n-seconds of silence.
-    """
-    pass
-
-def detect_keystrokes(sound_data, sample_rate=44100, output=True, num_peaks = None, labels = None):
+def detect_keystrokes(sound_data, sample_rate=SAMPLE_RATE, output=True, num_peaks = None, labels = None):
     """Return slices of sound_data that denote each keystroke present.
 
     Objective:
@@ -53,26 +74,23 @@ def detect_keystrokes(sound_data, sample_rate=44100, output=True, num_peaks = No
       utilizing more advanced audio processing techniques
     - Calculate MFCC etc. of sound_data to detect relevant peaks in sound
     """
-    keystroke_duration = 0.05  # seconds
+    keystroke_duration = 0.5  # seconds
     len_sample         = int(sample_rate * keystroke_duration)
     keystrokes = []
 
-    peaks, properties = scipy.signal.find_peaks(sound_data,threshold=500, distance=len_sample, prominence=1)
+    peaks = find_peaks(sound_data, threshold=3000, distance=len_sample)
     print(f"Found {len(peaks)} keystrokes in data")
 
-    if num_peaks and num_peaks < len(peaks):
-        ind = np.argpartition(properties["prominences"], -num_peaks)[-num_peaks:]
-        ind.sort()
-        peaks = peaks[ind]
-
-    else:
+    if not num_peaks:
         labels = [None for i in range(len(peaks))]
 
     for i, p in enumerate(peaks):
-        a, b = p, p + int(0.04 * sample_rate)
+        p = p - 1440
+        a, b = p, p + int(0.1 * sample_rate)
         if b > len(sound_data):
             b = len(sound_data)
 
+        print(p / sample_rate)
         keystroke = sound_data[a:b]
         keystrokes.append((keystroke.tolist(), labels[i]))
 
@@ -91,10 +109,16 @@ def visualize_keystrokes(filepath):
     num_cols = 3
     num_rows = n/num_cols + 1
     plt.figure(figsize=(num_cols * 6, num_rows * .75))
-    for i in range(n):
+    for i in range(min(n, len(keystrokes))):
         plt.subplot(num_rows, num_cols, i + 1)
         plt.title(f'Index: {i}')
-        plt.plot(np.array(keystrokes[i][0]))
+        f, t, Sxx = scipy.signal.spectrogram(np.array(keystrokes[i][0]))
+        plt.pcolormesh(t, f, Sxx)
+        plt.ylabel('Frequency [Hz]')
+        plt.xlabel('Time [sec]')
+        plt.show()
+        # plt.plot(np.array(keystrokes[i][0]))
+        # plt.plot(np.array(keystrokes[i + 5][0]))
     plt.show()
 
 
@@ -114,7 +138,17 @@ def main():
     if len(sys.argv) > 2:
         txtpath = str(sys.argv[2])
     outfile = os.path.join("out", "keystrokes", filepath.split("/")[-1] + "_out")
+
     wav_data = wav_read(filepath)
+    f, t, Sxx = scipy.signal.spectrogram(wav_data, fs=SAMPLE_RATE)
+    plt.pcolormesh(t, f, Sxx)
+    plt.ylabel('Frequency [Hz]')
+    plt.xlabel('Time [sec]')
+    plt.show()
+    
+    x_axis = [(i/SAMPLE_RATE) for i in range(len(wav_data))]
+    plt.plot(x_axis, wav_data)
+    plt.show()
 
     num_peaks, labels = getLabels(txtpath)
 
