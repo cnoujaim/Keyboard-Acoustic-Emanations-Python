@@ -37,7 +37,7 @@ class KeyDataLoader(Dataset):
                 data = [(self.extract_features(np.array(a)),  self.convertletter(b)) for (a, b) in data]
                 self.keystrokes.extend(data)
 
-        self.keystrokes = [i for i in self.keystrokes if i[1] > 20]
+        # self.keystrokes = [i for i in self.keystrokes if i[1] > 15]
 
 
     def __len__(self):
@@ -67,16 +67,14 @@ class KeyNet(nn.Module):
     def __init__(self):
         super(KeyNet, self).__init__()
         self.fc1 = nn.Linear(1296, 256)
-        self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 64)
-        self.fc4 = nn.Linear(64, 27)
+        self.fc2 = nn.Linear(256, 64)
+        self.fc3 = nn.Linear(64, 27)
 
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
-        x = self.fc4(x)
+        x = self.fc3(x)
         return x
 
 
@@ -113,10 +111,10 @@ class ClassifyKeystrokes:
         '''Classify keystrokes'''
         print("Training neural network...")
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(self.net.parameters(), lr=0.001)
+        optimizer = optim.Adam(self.net.parameters(), lr=0.00001)
         best_acc = 0
         best_model = None
-        for epoch in range(40):  # loop over the dataset multiple times
+        for epoch in range(100):  # loop over the dataset multiple times
             running_loss = 0.0
             for i, data in enumerate(self.trainloader, 0):
                 # get the inputs; data is a list of [inputs, labels]
@@ -154,7 +152,7 @@ class ClassifyKeystrokes:
                 # print(images)
                 # print(f"outputs {outputs}")
                 _, predicted = torch.max(outputs.data, 1)
-                print(predicted)
+                # print(predicted)
                 total += 1
                 correct += (predicted == labels).sum().item()
 

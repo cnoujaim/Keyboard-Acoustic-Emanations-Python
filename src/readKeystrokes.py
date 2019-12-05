@@ -30,8 +30,8 @@ def find_peaks(data, distance=1, threshold=0.1):
     i = 0
     while i < len(data):
         max_loc = np.argmax(data[i:i+distance]) + i
-        print(max_loc)
-        print(data[max_loc])
+        # print(max_loc)
+        # print(data[max_loc])
         if data[max_loc] > threshold:
             peaks.append(max_loc)
             i = max_loc + distance
@@ -141,6 +141,7 @@ def main():
     num_peaks, labels = getLabels(txtpath)
 
     keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
+    print(f"Keystrokes are the same length as labels is...: {len(keystrokes) == len(labels)}")
     with open(outfile, 'w') as f:
         f.write(json.dumps(keystrokes))
     visualize_keystrokes(filepath)
