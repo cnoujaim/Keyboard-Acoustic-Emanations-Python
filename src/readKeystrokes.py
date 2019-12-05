@@ -11,7 +11,7 @@ import json
 from copy import deepcopy
 
 import numpy as np
-from scipy.io import wavfile as wav
+import wavio
 import matplotlib.pyplot as plt
 import sqlalchemy as db
 import sqlalchemy.orm as orm
@@ -22,17 +22,16 @@ from sqlalchemy.dialects import postgresql
 import scipy
 import scipy.signal
 
-SAMPLE_RATE = 48000
-BITS = 16.0
+SAMPLE_RATE = 44100
 
 
-def find_peaks(data, distance=1, threshold=3000):
+def find_peaks(data, distance=1, threshold=0.1):
     peaks = []
     i = 0
     while i < len(data):
         max_loc = np.argmax(data[i:i+distance]) + i
-        # print(max_loc / SAMPLE_RATE)
-        # print(data[max_loc])
+        print(max_loc)
+        print(data[max_loc])
         if data[max_loc] > threshold:
             peaks.append(max_loc)
             i = max_loc + distance
@@ -49,20 +48,14 @@ def wav_read(filepath):
     """Return 1D NumPy array of wave-formatted audio data denoted by filename.
     Input should be a string containing the path to a wave-formatted audio file.
     """
-    sample_rate, data = wav.read(filepath)
-    SAMPLE_RATE = sample_rate
+    data = wavio.read(filepath)
+    data = data.data
     if type(data[0]) == np.ndarray:
-        data = data[:, 0]
-        data = data.astype(np.float32)
-        data = (data / np.max(np.abs(data)))
-        data -= np.mean(data)
-        return  data #np.array(b)
-    else:
-        data = data.astype(np.float32)
-        data = (data / np.max(np.abs(data)))
-        data -= np.mean(data)
-        return  data #np.array(b)
-
+        data = data[:,0]
+    data = data.astype(np.float32)
+    data = (data / np.max(np.abs(data)))
+    data -= np.mean(data)
+    return data
 
 
 def detect_keystrokes(sound_data, sample_rate=SAMPLE_RATE, output=True, num_peaks = None, labels = None):
@@ -74,7 +67,7 @@ def detect_keystrokes(sound_data, sample_rate=SAMPLE_RATE, output=True, num_peak
       utilizing more advanced audio processing techniques
     - Calculate MFCC etc. of sound_data to detect relevant peaks in sound
     """
-    keystroke_duration = 0.3  # seconds
+    keystroke_duration = 0.2  # seconds
     len_sample         = int(sample_rate * keystroke_duration)
     keystrokes = []
 
@@ -82,7 +75,7 @@ def detect_keystrokes(sound_data, sample_rate=SAMPLE_RATE, output=True, num_peak
     print(f"Found {len(peaks)} keystrokes in data")
 
     if not num_peaks:
-        labels = ['j', 'a', 'j', ' '] * 8
+        labels = [None for i in range(len(peaks))]
 
     for i, p in enumerate(peaks):
         p = p - 1440
@@ -90,7 +83,7 @@ def detect_keystrokes(sound_data, sample_rate=SAMPLE_RATE, output=True, num_peak
         if b > len(sound_data):
             b = len(sound_data)
 
-        print(p/SAMPLE_RATE)
+        # print(p/SAMPLE_RATE)
 
         keystroke = sound_data[a:b]
         keystrokes.append((keystroke.tolist(), labels[i]))
