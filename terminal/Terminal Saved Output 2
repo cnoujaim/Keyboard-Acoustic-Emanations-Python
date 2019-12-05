@@ -1,0 +1,1559 @@
+Last login: Wed Dec  4 19:06:47 on ttys000
+Cristinas-MacBook:~ cristinanoujaim$ cd Dropbox/eecs588/Keyboard-Acoustic-Emanations-Python/
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/classifyKeystrokes.py out/keystrokes/qwerty*
+--- Classify Keystrokes ---
+/usr/local/lib/python3.7/site-packages/librosa/filters.py:222: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  warnings.warn('Empty filters detected in mel frequency basis. '
+Training neural network...
+^CTraceback (most recent call last):
+  File "src/classifyKeystrokes.py", line 283, in <module>
+    main()
+  File "src/classifyKeystrokes.py", line 279, in main
+    classifier = ClassifyKeystrokes(files)
+  File "src/classifyKeystrokes.py", line 113, in __init__
+    self.classify()
+  File "src/classifyKeystrokes.py", line 139, in classify
+    loss.backward()
+  File "/usr/local/lib/python3.7/site-packages/torch/tensor.py", line 166, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph)
+  File "/usr/local/lib/python3.7/site-packages/torch/autograd/__init__.py", line 99, in backward
+    allow_unreachable=True)  # allow_unreachable flag
+KeyboardInterrupt
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty12.wav recordings/querty12.txt 
+Found 216 keystrokes in data
+Keystrokes are the same length as labels is...: True
+------- VISUALIZE KEYSTROKES --------
+Found 216 keystrokes in data
+Drawing keystrokes...
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty13.wav recordings/querty13.txt 
+Found 272 keystrokes in data
+Keystrokes are the same length as labels is...: True
+------- VISUALIZE KEYSTROKES --------
+Found 272 keystrokes in data
+Drawing keystrokes...
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty14.wav recordings/querty14.txt 
+Found 272 keystrokes in data
+Traceback (most recent call last):
+  File "src/readKeystrokes.py", line 149, in <module>
+    main()
+  File "src/readKeystrokes.py", line 143, in main
+    keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
+  File "src/readKeystrokes.py", line 89, in detect_keystrokes
+    keystrokes.append((keystroke.tolist(), labels[i]))
+IndexError: list index out of range
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty14.wav recordings/querty14.txt 
+Found 272 keystrokes in data
+Traceback (most recent call last):
+  File "src/readKeystrokes.py", line 149, in <module>
+    main()
+  File "src/readKeystrokes.py", line 143, in main
+    keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
+  File "src/readKeystrokes.py", line 89, in detect_keystrokes
+    keystrokes.append((keystroke.tolist(), labels[i]))
+IndexError: list index out of range
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty14.wav recordings/querty14.txt 
+Found 272 keystrokes in data
+Traceback (most recent call last):
+  File "src/readKeystrokes.py", line 149, in <module>
+    main()
+  File "src/readKeystrokes.py", line 143, in main
+    keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
+  File "src/readKeystrokes.py", line 89, in detect_keystrokes
+    keystrokes.append((keystroke.tolist(), labels[i]))
+IndexError: list index out of range
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty14.wav recordings/querty14.txt 
+Found 272 keystrokes in data
+Traceback (most recent call last):
+  File "src/readKeystrokes.py", line 149, in <module>
+    main()
+  File "src/readKeystrokes.py", line 143, in main
+    keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
+  File "src/readKeystrokes.py", line 89, in detect_keystrokes
+    keystrokes.append((keystroke.tolist(), labels[i]))
+IndexError: list index out of range
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty14.wav recordings/querty14.txt 
+Found 271 keystrokes in data
+Traceback (most recent call last):
+  File "src/readKeystrokes.py", line 149, in <module>
+    main()
+  File "src/readKeystrokes.py", line 143, in main
+    keystrokes = detect_keystrokes(wav_data, num_peaks = num_peaks, labels = labels)
+  File "src/readKeystrokes.py", line 89, in detect_keystrokes
+    keystrokes.append((keystroke.tolist(), labels[i]))
+IndexError: list index out of range
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty15.wav recordings/querty15.txt 
+Found 270 keystrokes in data
+Keystrokes are the same length as labels is...: False
+------- VISUALIZE KEYSTROKES --------
+Found 270 keystrokes in data
+Drawing keystrokes...
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/qwerty15.wav recordings/querty15.txt 
+Found 270 keystrokes in data
+Keystrokes are the same length as labels is...: False
+------- VISUALIZE KEYSTROKES --------
+Found 270 keystrokes in data
+Drawing keystrokes...
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/classifyKeystrokes.py out/keystrokes/qwerty*
+^CTraceback (most recent call last):
+  File "src/classifyKeystrokes.py", line 13, in <module>
+    from sklearn.cluster import KMeans
+  File "/usr/local/lib/python3.7/site-packages/sklearn/cluster/__init__.py", line 6, in <module>
+    from .spectral import spectral_clustering, SpectralClustering
+  File "/usr/local/lib/python3.7/site-packages/sklearn/cluster/spectral.py", line 17, in <module>
+    from ..manifold import spectral_embedding
+  File "/usr/local/lib/python3.7/site-packages/sklearn/manifold/__init__.py", line 9, in <module>
+    from .t_sne import TSNE
+  File "/usr/local/lib/python3.7/site-packages/sklearn/manifold/t_sne.py", line 26, in <module>
+    from . import _barnes_hut_tsne
+  File "<frozen importlib._bootstrap>", line 416, in parent
+KeyboardInterrupt
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/classifyKeystrokes.py out/keystrokes/qwerty*
+--- Classify Keystrokes ---
+/usr/local/lib/python3.7/site-packages/librosa/filters.py:222: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  warnings.warn('Empty filters detected in mel frequency basis. '
+^CTraceback (most recent call last):
+  File "src/classifyKeystrokes.py", line 284, in <module>
+    main()
+  File "src/classifyKeystrokes.py", line 280, in main
+    classifier = ClassifyKeystrokes(files)
+  File "src/classifyKeystrokes.py", line 93, in __init__
+    self.dataset = KeyDataLoader(files)
+  File "src/classifyKeystrokes.py", line 40, in __init__
+    data = [(self.extract_features(np.array(a)),  self.convertletter(b)) for (a, b) in data]
+  File "src/classifyKeystrokes.py", line 40, in <listcomp>
+    data = [(self.extract_features(np.array(a)),  self.convertletter(b)) for (a, b) in data]
+KeyboardInterrupt
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/classifyKeystrokes.py out/keystrokes/qwerty*
+--- Classify Keystrokes ---
+/usr/local/lib/python3.7/site-packages/librosa/filters.py:222: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  warnings.warn('Empty filters detected in mel frequency basis. '
+Training neural network...
+[1,   200] loss: 13.996
+[1,   400] loss: 8.166
+[1,   600] loss: 4.614
+[1,   800] loss: 4.012
+[1,  1000] loss: 3.799
+[1,  1200] loss: 3.449
+[1,  1400] loss: 3.366
+[1,  1600] loss: 3.290
+Accuracy of the network on the 432 test keys: 6.481481481481482%
+[2,   200] loss: 3.266
+[2,   400] loss: 3.229
+[2,   600] loss: 3.318
+[2,   800] loss: 3.257
+[2,  1000] loss: 3.289
+[2,  1200] loss: 3.292
+[2,  1400] loss: 3.278
+[2,  1600] loss: 3.304
+Accuracy of the network on the 432 test keys: 4.398148148148148%
+[3,   200] loss: 3.273
+[3,   400] loss: 3.257
+[3,   600] loss: 3.216
+[3,   800] loss: 3.286
+[3,  1000] loss: 3.280
+[3,  1200] loss: 3.298
+[3,  1400] loss: 3.260
+[3,  1600] loss: 3.258
+Accuracy of the network on the 432 test keys: 3.7037037037037037%
+[4,   200] loss: 3.224
+[4,   400] loss: 3.213
+[4,   600] loss: 3.202
+[4,   800] loss: 3.218
+[4,  1000] loss: 3.218
+[4,  1200] loss: 3.284
+[4,  1400] loss: 3.312
+[4,  1600] loss: 3.282
+Accuracy of the network on the 432 test keys: 5.787037037037037%
+[5,   200] loss: 3.251
+[5,   400] loss: 3.304
+[5,   600] loss: 3.261
+[5,   800] loss: 3.285
+[5,  1000] loss: 3.302
+[5,  1200] loss: 3.298
+[5,  1400] loss: 3.277
+[5,  1600] loss: 3.268
+Accuracy of the network on the 432 test keys: 4.398148148148148%
+[6,   200] loss: 3.294
+[6,   400] loss: 3.295
+[6,   600] loss: 3.304
+[6,   800] loss: 3.291
+[6,  1000] loss: 3.304
+[6,  1200] loss: 3.286
+^CTraceback (most recent call last):
+  File "src/classifyKeystrokes.py", line 284, in <module>
+    main()
+  File "src/classifyKeystrokes.py", line 280, in main
+    classifier = ClassifyKeystrokes(files)
+  File "src/classifyKeystrokes.py", line 113, in __init__
+    self.classify()
+  File "src/classifyKeystrokes.py", line 139, in classify
+    loss.backward()
+  File "/usr/local/lib/python3.7/site-packages/torch/tensor.py", line 166, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph)
+  File "/usr/local/lib/python3.7/site-packages/torch/autograd/__init__.py", line 99, in backward
+    allow_unreachable=True)  # allow_unreachable flag
+KeyboardInterrupt
+
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/classifyKeystrokes.py out/keystrokes/qwerty*
+--- Classify Keystrokes ---
+/usr/local/lib/python3.7/site-packages/librosa/filters.py:222: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  warnings.warn('Empty filters detected in mel frequency basis. '
+Training neural network...
+[1,   200] loss: 16.109
+[1,   400] loss: 9.796
+[1,   600] loss: 7.097
+[1,   800] loss: 5.755
+[1,  1000] loss: 5.539
+[1,  1200] loss: 4.732
+[1,  1400] loss: 4.464
+[1,  1600] loss: 4.542
+Accuracy of the network on the 432 test keys: 6.712962962962963%
+[2,   200] loss: 4.204
+[2,   400] loss: 4.217
+[2,   600] loss: 4.017
+[2,   800] loss: 3.739
+[2,  1000] loss: 3.575
+[2,  1200] loss: 3.865
+[2,  1400] loss: 3.774
+[2,  1600] loss: 3.624
+Accuracy of the network on the 432 test keys: 6.481481481481482%
+[3,   200] loss: 3.322
+[3,   400] loss: 3.284
+[3,   600] loss: 3.302
+[3,   800] loss: 3.339
+[3,  1000] loss: 3.236
+[3,  1200] loss: 3.256
+[3,  1400] loss: 3.257
+[3,  1600] loss: 3.041
+Accuracy of the network on the 432 test keys: 12.037037037037036%
+[4,   200] loss: 3.018
+[4,   400] loss: 3.123
+[4,   600] loss: 3.058
+[4,   800] loss: 3.016
+[4,  1000] loss: 2.992
+[4,  1200] loss: 3.098
+[4,  1400] loss: 3.068
+[4,  1600] loss: 2.963
+Accuracy of the network on the 432 test keys: 10.87962962962963%
+[5,   200] loss: 2.948
+[5,   400] loss: 3.008
+[5,   600] loss: 2.786
+[5,   800] loss: 2.916
+[5,  1000] loss: 2.862
+[5,  1200] loss: 2.963
+[5,  1400] loss: 2.798
+[5,  1600] loss: 2.876
+Accuracy of the network on the 432 test keys: 15.277777777777779%
+[6,   200] loss: 2.782
+[6,   400] loss: 2.681
+[6,   600] loss: 2.773
+[6,   800] loss: 2.656
+[6,  1000] loss: 2.737
+[6,  1200] loss: 2.846
+[6,  1400] loss: 2.680
+[6,  1600] loss: 2.682
+Accuracy of the network on the 432 test keys: 20.37037037037037%
+[7,   200] loss: 2.606
+[7,   400] loss: 2.560
+[7,   600] loss: 2.535
+[7,   800] loss: 2.643
+[7,  1000] loss: 2.559
+[7,  1200] loss: 2.536
+[7,  1400] loss: 2.586
+[7,  1600] loss: 2.581
+Accuracy of the network on the 432 test keys: 24.074074074074073%
+[8,   200] loss: 2.434
+[8,   400] loss: 2.392
+[8,   600] loss: 2.379
+[8,   800] loss: 2.335
+[8,  1000] loss: 2.384
+[8,  1200] loss: 2.380
+[8,  1400] loss: 2.423
+[8,  1600] loss: 2.460
+Accuracy of the network on the 432 test keys: 31.944444444444443%
+[9,   200] loss: 2.275
+[9,   400] loss: 2.168
+[9,   600] loss: 2.425
+[9,   800] loss: 2.183
+[9,  1000] loss: 2.293
+[9,  1200] loss: 2.141
+[9,  1400] loss: 2.171
+[9,  1600] loss: 2.151
+Accuracy of the network on the 432 test keys: 32.870370370370374%
+[10,   200] loss: 2.043
+[10,   400] loss: 2.093
+[10,   600] loss: 2.224
+[10,   800] loss: 2.149
+[10,  1000] loss: 2.109
+[10,  1200] loss: 2.051
+[10,  1400] loss: 2.103
+[10,  1600] loss: 1.964
+Accuracy of the network on the 432 test keys: 31.01851851851852%
+[11,   200] loss: 1.969
+[11,   400] loss: 1.883
+[11,   600] loss: 2.006
+[11,   800] loss: 2.027
+[11,  1000] loss: 1.966
+[11,  1200] loss: 2.007
+[11,  1400] loss: 1.779
+[11,  1600] loss: 1.934
+Accuracy of the network on the 432 test keys: 37.5%
+[12,   200] loss: 1.825
+[12,   400] loss: 1.857
+[12,   600] loss: 1.853
+[12,   800] loss: 1.801
+[12,  1000] loss: 1.950
+[12,  1200] loss: 1.741
+[12,  1400] loss: 1.774
+[12,  1600] loss: 1.917
+Accuracy of the network on the 432 test keys: 42.361111111111114%
+[13,   200] loss: 1.788
+[13,   400] loss: 1.617
+[13,   600] loss: 1.753
+[13,   800] loss: 1.722
+[13,  1000] loss: 1.587
+[13,  1200] loss: 1.668
+[13,  1400] loss: 1.780
+[13,  1600] loss: 1.678
+Accuracy of the network on the 432 test keys: 39.583333333333336%
+[14,   200] loss: 1.736
+[14,   400] loss: 1.644
+[14,   600] loss: 1.639
+[14,   800] loss: 1.579
+[14,  1000] loss: 1.626
+[14,  1200] loss: 1.600
+[14,  1400] loss: 1.508
+[14,  1600] loss: 1.645
+Accuracy of the network on the 432 test keys: 40.74074074074074%
+[15,   200] loss: 1.440
+[15,   400] loss: 1.472
+[15,   600] loss: 1.599
+[15,   800] loss: 1.539
+[15,  1000] loss: 1.540
+[15,  1200] loss: 1.501
+[15,  1400] loss: 1.505
+[15,  1600] loss: 1.498
+Accuracy of the network on the 432 test keys: 46.99074074074074%
+[16,   200] loss: 1.406
+[16,   400] loss: 1.531
+[16,   600] loss: 1.427
+[16,   800] loss: 1.390
+[16,  1000] loss: 1.480
+[16,  1200] loss: 1.368
+[16,  1400] loss: 1.379
+[16,  1600] loss: 1.416
+Accuracy of the network on the 432 test keys: 49.074074074074076%
+[17,   200] loss: 1.446
+[17,   400] loss: 1.468
+[17,   600] loss: 1.351
+[17,   800] loss: 1.397
+[17,  1000] loss: 1.359
+[17,  1200] loss: 1.208
+[17,  1400] loss: 1.303
+[17,  1600] loss: 1.315
+Accuracy of the network on the 432 test keys: 50.0%
+[18,   200] loss: 1.274
+[18,   400] loss: 1.240
+[18,   600] loss: 1.183
+[18,   800] loss: 1.344
+[18,  1000] loss: 1.252
+[18,  1200] loss: 1.204
+[18,  1400] loss: 1.239
+[18,  1600] loss: 1.203
+Accuracy of the network on the 432 test keys: 49.074074074074076%
+[19,   200] loss: 1.075
+[19,   400] loss: 1.191
+[19,   600] loss: 1.188
+[19,   800] loss: 1.110
+[19,  1000] loss: 1.247
+[19,  1200] loss: 1.211
+[19,  1400] loss: 1.222
+[19,  1600] loss: 1.199
+Accuracy of the network on the 432 test keys: 50.0%
+[20,   200] loss: 1.089
+[20,   400] loss: 1.202
+[20,   600] loss: 0.999
+[20,   800] loss: 1.084
+[20,  1000] loss: 1.134
+[20,  1200] loss: 1.135
+[20,  1400] loss: 1.137
+[20,  1600] loss: 1.119
+Accuracy of the network on the 432 test keys: 52.31481481481482%
+[21,   200] loss: 1.149
+[21,   400] loss: 1.088
+[21,   600] loss: 1.112
+[21,   800] loss: 1.011
+[21,  1000] loss: 0.922
+[21,  1200] loss: 1.072
+[21,  1400] loss: 1.116
+[21,  1600] loss: 1.012
+Accuracy of the network on the 432 test keys: 48.611111111111114%
+[22,   200] loss: 0.917
+[22,   400] loss: 1.006
+[22,   600] loss: 1.062
+[22,   800] loss: 1.033
+[22,  1000] loss: 0.950
+[22,  1200] loss: 0.982
+[22,  1400] loss: 1.064
+[22,  1600] loss: 1.035
+Accuracy of the network on the 432 test keys: 57.175925925925924%
+[23,   200] loss: 0.939
+[23,   400] loss: 0.911
+[23,   600] loss: 1.030
+[23,   800] loss: 0.893
+[23,  1000] loss: 0.861
+[23,  1200] loss: 0.875
+[23,  1400] loss: 0.952
+[23,  1600] loss: 1.045
+Accuracy of the network on the 432 test keys: 62.96296296296296%
+[24,   200] loss: 0.940
+[24,   400] loss: 0.918
+[24,   600] loss: 0.869
+[24,   800] loss: 0.862
+[24,  1000] loss: 0.859
+[24,  1200] loss: 0.911
+[24,  1400] loss: 0.921
+[24,  1600] loss: 0.849
+Accuracy of the network on the 432 test keys: 57.870370370370374%
+[25,   200] loss: 0.881
+[25,   400] loss: 0.878
+[25,   600] loss: 0.898
+[25,   800] loss: 0.830
+[25,  1000] loss: 0.781
+[25,  1200] loss: 0.830
+[25,  1400] loss: 0.805
+[25,  1600] loss: 0.828
+Accuracy of the network on the 432 test keys: 60.416666666666664%
+[26,   200] loss: 0.784
+[26,   400] loss: 0.785
+[26,   600] loss: 0.856
+[26,   800] loss: 0.740
+[26,  1000] loss: 0.852
+[26,  1200] loss: 0.782
+[26,  1400] loss: 0.755
+[26,  1600] loss: 0.777
+Accuracy of the network on the 432 test keys: 63.657407407407405%
+[27,   200] loss: 0.818
+[27,   400] loss: 0.683
+[27,   600] loss: 0.722
+[27,   800] loss: 0.788
+[27,  1000] loss: 0.746
+[27,  1200] loss: 0.890
+[27,  1400] loss: 0.692
+[27,  1600] loss: 0.664
+Accuracy of the network on the 432 test keys: 66.20370370370371%
+[28,   200] loss: 0.686
+[28,   400] loss: 0.715
+[28,   600] loss: 0.678
+[28,   800] loss: 0.625
+[28,  1000] loss: 0.732
+[28,  1200] loss: 0.767
+[28,  1400] loss: 0.615
+[28,  1600] loss: 0.779
+Accuracy of the network on the 432 test keys: 64.12037037037037%
+[29,   200] loss: 0.697
+[29,   400] loss: 0.672
+[29,   600] loss: 0.639
+[29,   800] loss: 0.649
+[29,  1000] loss: 0.703
+[29,  1200] loss: 0.647
+[29,  1400] loss: 0.657
+[29,  1600] loss: 0.623
+Accuracy of the network on the 432 test keys: 66.43518518518519%
+[30,   200] loss: 0.612
+[30,   400] loss: 0.556
+[30,   600] loss: 0.559
+[30,   800] loss: 0.616
+[30,  1000] loss: 0.674
+[30,  1200] loss: 0.584
+[30,  1400] loss: 0.708
+[30,  1600] loss: 0.562
+Accuracy of the network on the 432 test keys: 66.66666666666667%
+[31,   200] loss: 0.542
+[31,   400] loss: 0.607
+[31,   600] loss: 0.604
+[31,   800] loss: 0.586
+[31,  1000] loss: 0.648
+[31,  1200] loss: 0.549
+[31,  1400] loss: 0.576
+[31,  1600] loss: 0.568
+Accuracy of the network on the 432 test keys: 65.04629629629629%
+[32,   200] loss: 0.567
+[32,   400] loss: 0.575
+[32,   600] loss: 0.554
+[32,   800] loss: 0.525
+[32,  1000] loss: 0.482
+[32,  1200] loss: 0.561
+[32,  1400] loss: 0.580
+[32,  1600] loss: 0.527
+Accuracy of the network on the 432 test keys: 71.06481481481481%
+[33,   200] loss: 0.481
+[33,   400] loss: 0.483
+[33,   600] loss: 0.535
+[33,   800] loss: 0.521
+[33,  1000] loss: 0.505
+[33,  1200] loss: 0.449
+[33,  1400] loss: 0.491
+[33,  1600] loss: 0.551
+Accuracy of the network on the 432 test keys: 69.21296296296296%
+[34,   200] loss: 0.399
+[34,   400] loss: 0.493
+[34,   600] loss: 0.505
+[34,   800] loss: 0.455
+[34,  1000] loss: 0.532
+[34,  1200] loss: 0.435
+[34,  1400] loss: 0.488
+[34,  1600] loss: 0.505
+Accuracy of the network on the 432 test keys: 69.9074074074074%
+[35,   200] loss: 0.452
+[35,   400] loss: 0.479
+[35,   600] loss: 0.490
+[35,   800] loss: 0.431
+[35,  1000] loss: 0.393
+[35,  1200] loss: 0.424
+[35,  1400] loss: 0.462
+[35,  1600] loss: 0.513
+Accuracy of the network on the 432 test keys: 66.43518518518519%
+[36,   200] loss: 0.392
+[36,   400] loss: 0.481
+[36,   600] loss: 0.440
+[36,   800] loss: 0.432
+[36,  1000] loss: 0.400
+[36,  1200] loss: 0.428
+[36,  1400] loss: 0.431
+[36,  1600] loss: 0.403
+Accuracy of the network on the 432 test keys: 65.27777777777777%
+[37,   200] loss: 0.408
+[37,   400] loss: 0.429
+[37,   600] loss: 0.374
+[37,   800] loss: 0.423
+[37,  1000] loss: 0.418
+[37,  1200] loss: 0.408
+[37,  1400] loss: 0.411
+[37,  1600] loss: 0.375
+Accuracy of the network on the 432 test keys: 73.37962962962963%
+[38,   200] loss: 0.379
+[38,   400] loss: 0.366
+[38,   600] loss: 0.387
+[38,   800] loss: 0.404
+[38,  1000] loss: 0.374
+[38,  1200] loss: 0.391
+[38,  1400] loss: 0.341
+[38,  1600] loss: 0.391
+Accuracy of the network on the 432 test keys: 63.19444444444444%
+[39,   200] loss: 0.419
+[39,   400] loss: 0.321
+[39,   600] loss: 0.354
+[39,   800] loss: 0.369
+[39,  1000] loss: 0.372
+[39,  1200] loss: 0.385
+[39,  1400] loss: 0.315
+[39,  1600] loss: 0.337
+Accuracy of the network on the 432 test keys: 70.60185185185185%
+[40,   200] loss: 0.345
+[40,   400] loss: 0.346
+[40,   600] loss: 0.292
+[40,   800] loss: 0.355
+[40,  1000] loss: 0.304
+[40,  1200] loss: 0.362
+[40,  1400] loss: 0.391
+[40,  1600] loss: 0.338
+Accuracy of the network on the 432 test keys: 71.99074074074075%
+[41,   200] loss: 0.294
+[41,   400] loss: 0.338
+[41,   600] loss: 0.300
+[41,   800] loss: 0.348
+[41,  1000] loss: 0.276
+[41,  1200] loss: 0.276
+[41,  1400] loss: 0.366
+[41,  1600] loss: 0.327
+Accuracy of the network on the 432 test keys: 72.45370370370371%
+[42,   200] loss: 0.303
+[42,   400] loss: 0.314
+[42,   600] loss: 0.300
+[42,   800] loss: 0.323
+[42,  1000] loss: 0.290
+[42,  1200] loss: 0.300
+[42,  1400] loss: 0.285
+[42,  1600] loss: 0.288
+Accuracy of the network on the 432 test keys: 70.60185185185185%
+[43,   200] loss: 0.264
+[43,   400] loss: 0.277
+[43,   600] loss: 0.273
+[43,   800] loss: 0.240
+[43,  1000] loss: 0.270
+[43,  1200] loss: 0.299
+[43,  1400] loss: 0.257
+[43,  1600] loss: 0.296
+Accuracy of the network on the 432 test keys: 68.51851851851852%
+[44,   200] loss: 0.235
+[44,   400] loss: 0.240
+[44,   600] loss: 0.261
+[44,   800] loss: 0.259
+[44,  1000] loss: 0.287
+[44,  1200] loss: 0.303
+[44,  1400] loss: 0.262
+[44,  1600] loss: 0.230
+Accuracy of the network on the 432 test keys: 72.45370370370371%
+[45,   200] loss: 0.224
+[45,   400] loss: 0.304
+[45,   600] loss: 0.238
+[45,   800] loss: 0.210
+[45,  1000] loss: 0.236
+[45,  1200] loss: 0.262
+[45,  1400] loss: 0.240
+[45,  1600] loss: 0.258
+Accuracy of the network on the 432 test keys: 72.45370370370371%
+[46,   200] loss: 0.248
+[46,   400] loss: 0.200
+[46,   600] loss: 0.270
+[46,   800] loss: 0.194
+[46,  1000] loss: 0.219
+[46,  1200] loss: 0.236
+[46,  1400] loss: 0.190
+[46,  1600] loss: 0.251
+Accuracy of the network on the 432 test keys: 75.92592592592592%
+[47,   200] loss: 0.191
+[47,   400] loss: 0.187
+[47,   600] loss: 0.223
+[47,   800] loss: 0.204
+[47,  1000] loss: 0.185
+[47,  1200] loss: 0.239
+[47,  1400] loss: 0.220
+[47,  1600] loss: 0.269
+Accuracy of the network on the 432 test keys: 73.8425925925926%
+[48,   200] loss: 0.171
+[48,   400] loss: 0.204
+[48,   600] loss: 0.199
+[48,   800] loss: 0.221
+[48,  1000] loss: 0.162
+[48,  1200] loss: 0.223
+[48,  1400] loss: 0.191
+[48,  1600] loss: 0.180
+Accuracy of the network on the 432 test keys: 75.46296296296296%
+[49,   200] loss: 0.183
+[49,   400] loss: 0.198
+[49,   600] loss: 0.187
+[49,   800] loss: 0.223
+[49,  1000] loss: 0.202
+[49,  1200] loss: 0.187
+[49,  1400] loss: 0.144
+[49,  1600] loss: 0.178
+Accuracy of the network on the 432 test keys: 76.62037037037037%
+[50,   200] loss: 0.197
+[50,   400] loss: 0.156
+[50,   600] loss: 0.184
+[50,   800] loss: 0.175
+[50,  1000] loss: 0.170
+[50,  1200] loss: 0.169
+[50,  1400] loss: 0.186
+[50,  1600] loss: 0.185
+Accuracy of the network on the 432 test keys: 76.85185185185185%
+[51,   200] loss: 0.178
+[51,   400] loss: 0.160
+[51,   600] loss: 0.164
+[51,   800] loss: 0.154
+[51,  1000] loss: 0.153
+[51,  1200] loss: 0.142
+[51,  1400] loss: 0.138
+[51,  1600] loss: 0.175
+Accuracy of the network on the 432 test keys: 80.32407407407408%
+[52,   200] loss: 0.180
+[52,   400] loss: 0.135
+[52,   600] loss: 0.155
+[52,   800] loss: 0.144
+[52,  1000] loss: 0.160
+[52,  1200] loss: 0.142
+[52,  1400] loss: 0.145
+[52,  1600] loss: 0.171
+Accuracy of the network on the 432 test keys: 73.61111111111111%
+[53,   200] loss: 0.148
+[53,   400] loss: 0.158
+[53,   600] loss: 0.107
+[53,   800] loss: 0.156
+[53,  1000] loss: 0.177
+[53,  1200] loss: 0.130
+[53,  1400] loss: 0.145
+[53,  1600] loss: 0.130
+Accuracy of the network on the 432 test keys: 76.1574074074074%
+[54,   200] loss: 0.154
+[54,   400] loss: 0.129
+[54,   600] loss: 0.165
+[54,   800] loss: 0.125
+[54,  1000] loss: 0.132
+[54,  1200] loss: 0.136
+[54,  1400] loss: 0.105
+[54,  1600] loss: 0.135
+Accuracy of the network on the 432 test keys: 77.54629629629629%
+[55,   200] loss: 0.127
+[55,   400] loss: 0.136
+[55,   600] loss: 0.124
+[55,   800] loss: 0.113
+[55,  1000] loss: 0.118
+[55,  1200] loss: 0.134
+[55,  1400] loss: 0.109
+[55,  1600] loss: 0.146
+Accuracy of the network on the 432 test keys: 77.77777777777777%
+[56,   200] loss: 0.103
+[56,   400] loss: 0.092
+[56,   600] loss: 0.112
+[56,   800] loss: 0.096
+[56,  1000] loss: 0.123
+[56,  1200] loss: 0.146
+[56,  1400] loss: 0.103
+[56,  1600] loss: 0.124
+Accuracy of the network on the 432 test keys: 77.77777777777777%
+[57,   200] loss: 0.102
+[57,   400] loss: 0.126
+[57,   600] loss: 0.096
+[57,   800] loss: 0.108
+[57,  1000] loss: 0.116
+[57,  1200] loss: 0.115
+[57,  1400] loss: 0.111
+[57,  1600] loss: 0.115
+Accuracy of the network on the 432 test keys: 76.38888888888889%
+[58,   200] loss: 0.084
+[58,   400] loss: 0.099
+[58,   600] loss: 0.107
+[58,   800] loss: 0.114
+[58,  1000] loss: 0.103
+[58,  1200] loss: 0.107
+[58,  1400] loss: 0.107
+[58,  1600] loss: 0.108
+Accuracy of the network on the 432 test keys: 79.86111111111111%
+[59,   200] loss: 0.090
+[59,   400] loss: 0.104
+[59,   600] loss: 0.093
+[59,   800] loss: 0.092
+[59,  1000] loss: 0.083
+[59,  1200] loss: 0.098
+[59,  1400] loss: 0.104
+[59,  1600] loss: 0.094
+Accuracy of the network on the 432 test keys: 73.8425925925926%
+[60,   200] loss: 0.091
+[60,   400] loss: 0.092
+[60,   600] loss: 0.087
+[60,   800] loss: 0.085
+[60,  1000] loss: 0.088
+[60,  1200] loss: 0.090
+[60,  1400] loss: 0.084
+[60,  1600] loss: 0.075
+Accuracy of the network on the 432 test keys: 75.92592592592592%
+[61,   200] loss: 0.100
+[61,   400] loss: 0.077
+[61,   600] loss: 0.079
+[61,   800] loss: 0.073
+[61,  1000] loss: 0.070
+[61,  1200] loss: 0.094
+[61,  1400] loss: 0.074
+[61,  1600] loss: 0.082
+Accuracy of the network on the 432 test keys: 76.85185185185185%
+[62,   200] loss: 0.060
+[62,   400] loss: 0.075
+[62,   600] loss: 0.073
+[62,   800] loss: 0.087
+[62,  1000] loss: 0.075
+[62,  1200] loss: 0.110
+[62,  1400] loss: 0.075
+[62,  1600] loss: 0.100
+Accuracy of the network on the 432 test keys: 78.00925925925925%
+[63,   200] loss: 0.084
+[63,   400] loss: 0.069
+[63,   600] loss: 0.054
+[63,   800] loss: 0.070
+[63,  1000] loss: 0.073
+[63,  1200] loss: 0.071
+[63,  1400] loss: 0.077
+[63,  1600] loss: 0.080
+Accuracy of the network on the 432 test keys: 78.70370370370371%
+[64,   200] loss: 0.053
+[64,   400] loss: 0.071
+[64,   600] loss: 0.056
+[64,   800] loss: 0.079
+[64,  1000] loss: 0.087
+[64,  1200] loss: 0.067
+[64,  1400] loss: 0.059
+[64,  1600] loss: 0.058
+Accuracy of the network on the 432 test keys: 79.62962962962963%
+[65,   200] loss: 0.055
+[65,   400] loss: 0.069
+[65,   600] loss: 0.067
+[65,   800] loss: 0.087
+[65,  1000] loss: 0.062
+[65,  1200] loss: 0.061
+[65,  1400] loss: 0.054
+[65,  1600] loss: 0.069
+Accuracy of the network on the 432 test keys: 78.00925925925925%
+[66,   200] loss: 0.051
+[66,   400] loss: 0.061
+[66,   600] loss: 0.056
+[66,   800] loss: 0.068
+[66,  1000] loss: 0.049
+[66,  1200] loss: 0.056
+[66,  1400] loss: 0.061
+[66,  1600] loss: 0.053
+Accuracy of the network on the 432 test keys: 81.94444444444444%
+[67,   200] loss: 0.048
+[67,   400] loss: 0.054
+[67,   600] loss: 0.062
+[67,   800] loss: 0.052
+[67,  1000] loss: 0.049
+[67,  1200] loss: 0.052
+[67,  1400] loss: 0.065
+[67,  1600] loss: 0.065
+Accuracy of the network on the 432 test keys: 81.94444444444444%
+[68,   200] loss: 0.047
+[68,   400] loss: 0.072
+[68,   600] loss: 0.053
+[68,   800] loss: 0.040
+[68,  1000] loss: 0.045
+[68,  1200] loss: 0.050
+[68,  1400] loss: 0.043
+[68,  1600] loss: 0.047
+Accuracy of the network on the 432 test keys: 78.47222222222223%
+[69,   200] loss: 0.056
+[69,   400] loss: 0.047
+[69,   600] loss: 0.052
+[69,   800] loss: 0.041
+[69,  1000] loss: 0.038
+[69,  1200] loss: 0.040
+[69,  1400] loss: 0.049
+[69,  1600] loss: 0.069
+Accuracy of the network on the 432 test keys: 78.70370370370371%
+[70,   200] loss: 0.035
+[70,   400] loss: 0.039
+[70,   600] loss: 0.040
+[70,   800] loss: 0.044
+[70,  1000] loss: 0.052
+[70,  1200] loss: 0.041
+[70,  1400] loss: 0.040
+[70,  1600] loss: 0.041
+Accuracy of the network on the 432 test keys: 78.00925925925925%
+[71,   200] loss: 0.038
+[71,   400] loss: 0.044
+[71,   600] loss: 0.051
+[71,   800] loss: 0.051
+[71,  1000] loss: 0.037
+[71,  1200] loss: 0.035
+[71,  1400] loss: 0.047
+[71,  1600] loss: 0.034
+Accuracy of the network on the 432 test keys: 77.31481481481481%
+[72,   200] loss: 0.052
+[72,   400] loss: 0.033
+[72,   600] loss: 0.039
+[72,   800] loss: 0.038
+[72,  1000] loss: 0.034
+[72,  1200] loss: 0.059
+[72,  1400] loss: 0.033
+[72,  1600] loss: 0.033
+Accuracy of the network on the 432 test keys: 82.63888888888889%
+[73,   200] loss: 0.037
+[73,   400] loss: 0.031
+[73,   600] loss: 0.032
+[73,   800] loss: 0.032
+[73,  1000] loss: 0.035
+[73,  1200] loss: 0.038
+[73,  1400] loss: 0.046
+[73,  1600] loss: 0.032
+Accuracy of the network on the 432 test keys: 79.39814814814815%
+[74,   200] loss: 0.037
+[74,   400] loss: 0.032
+[74,   600] loss: 0.028
+[74,   800] loss: 0.027
+[74,  1000] loss: 0.031
+[74,  1200] loss: 0.051
+[74,  1400] loss: 0.031
+[74,  1600] loss: 0.028
+Accuracy of the network on the 432 test keys: 82.17592592592592%
+[75,   200] loss: 0.028
+[75,   400] loss: 0.038
+[75,   600] loss: 0.034
+[75,   800] loss: 0.026
+[75,  1000] loss: 0.032
+[75,  1200] loss: 0.046
+[75,  1400] loss: 0.029
+[75,  1600] loss: 0.024
+Accuracy of the network on the 432 test keys: 79.39814814814815%
+[76,   200] loss: 0.028
+[76,   400] loss: 0.027
+[76,   600] loss: 0.034
+[76,   800] loss: 0.025
+[76,  1000] loss: 0.025
+[76,  1200] loss: 0.026
+[76,  1400] loss: 0.025
+[76,  1600] loss: 0.032
+Accuracy of the network on the 432 test keys: 81.25%
+[77,   200] loss: 0.035
+[77,   400] loss: 0.024
+[77,   600] loss: 0.024
+[77,   800] loss: 0.023
+[77,  1000] loss: 0.031
+[77,  1200] loss: 0.062
+[77,  1400] loss: 0.030
+[77,  1600] loss: 0.022
+Accuracy of the network on the 432 test keys: 82.63888888888889%
+[78,   200] loss: 0.020
+[78,   400] loss: 0.020
+[78,   600] loss: 0.024
+[78,   800] loss: 0.028
+[78,  1000] loss: 0.029
+[78,  1200] loss: 0.019
+[78,  1400] loss: 0.024
+[78,  1600] loss: 0.024
+Accuracy of the network on the 432 test keys: 82.4074074074074%
+[79,   200] loss: 0.022
+[79,   400] loss: 0.021
+[79,   600] loss: 0.024
+[79,   800] loss: 0.067
+[79,  1000] loss: 0.020
+[79,  1200] loss: 0.022
+[79,  1400] loss: 0.019
+[79,  1600] loss: 0.020
+Accuracy of the network on the 432 test keys: 82.4074074074074%
+[80,   200] loss: 0.018
+[80,   400] loss: 0.019
+[80,   600] loss: 0.019
+[80,   800] loss: 0.021
+[80,  1000] loss: 0.019
+[80,  1200] loss: 0.021
+[80,  1400] loss: 0.020
+[80,  1600] loss: 0.085
+Accuracy of the network on the 432 test keys: 83.33333333333333%
+[81,   200] loss: 0.015
+[81,   400] loss: 0.018
+[81,   600] loss: 0.017
+[81,   800] loss: 0.016
+[81,  1000] loss: 0.018
+[81,  1200] loss: 0.015
+[81,  1400] loss: 0.019
+[81,  1600] loss: 0.016
+Accuracy of the network on the 432 test keys: 81.94444444444444%
+[82,   200] loss: 0.020
+[82,   400] loss: 0.016
+[82,   600] loss: 0.018
+[82,   800] loss: 0.019
+[82,  1000] loss: 0.019
+[82,  1200] loss: 0.027
+[82,  1400] loss: 0.021
+[82,  1600] loss: 0.016
+Accuracy of the network on the 432 test keys: 80.32407407407408%
+[83,   200] loss: 0.016
+[83,   400] loss: 0.017
+[83,   600] loss: 0.018
+[83,   800] loss: 0.020
+[83,  1000] loss: 0.018
+[83,  1200] loss: 0.048
+[83,  1400] loss: 0.017
+[83,  1600] loss: 0.014
+Accuracy of the network on the 432 test keys: 83.33333333333333%
+[84,   200] loss: 0.014
+[84,   400] loss: 0.015
+[84,   600] loss: 0.013
+[84,   800] loss: 0.015
+[84,  1000] loss: 0.021
+[84,  1200] loss: 0.021
+[84,  1400] loss: 0.069
+[84,  1600] loss: 0.012
+Accuracy of the network on the 432 test keys: 82.63888888888889%
+[85,   200] loss: 0.012
+[85,   400] loss: 0.012
+[85,   600] loss: 0.012
+[85,   800] loss: 0.012
+[85,  1000] loss: 0.012
+[85,  1200] loss: 0.014
+[85,  1400] loss: 0.013
+[85,  1600] loss: 0.015
+Accuracy of the network on the 432 test keys: 80.78703703703704%
+[86,   200] loss: 0.060
+[86,   400] loss: 0.016
+[86,   600] loss: 0.011
+[86,   800] loss: 0.012
+[86,  1000] loss: 0.013
+[86,  1200] loss: 0.014
+[86,  1400] loss: 0.011
+[86,  1600] loss: 0.011
+Accuracy of the network on the 432 test keys: 83.56481481481481%
+[87,   200] loss: 0.011
+[87,   400] loss: 0.016
+[87,   600] loss: 0.012
+[87,   800] loss: 0.015
+[87,  1000] loss: 0.012
+[87,  1200] loss: 0.014
+[87,  1400] loss: 0.015
+[87,  1600] loss: 0.015
+Accuracy of the network on the 432 test keys: 81.25%
+[88,   200] loss: 0.011
+[88,   400] loss: 0.014
+[88,   600] loss: 0.018
+[88,   800] loss: 0.026
+[88,  1000] loss: 0.013
+[88,  1200] loss: 0.010
+[88,  1400] loss: 0.012
+[88,  1600] loss: 0.012
+Accuracy of the network on the 432 test keys: 82.87037037037037%
+[89,   200] loss: 0.010
+[89,   400] loss: 0.012
+[89,   600] loss: 0.014
+[89,   800] loss: 0.011
+[89,  1000] loss: 0.013
+[89,  1200] loss: 0.060
+[89,  1400] loss: 0.022
+[89,  1600] loss: 0.010
+Accuracy of the network on the 432 test keys: 84.49074074074075%
+[90,   200] loss: 0.009
+[90,   400] loss: 0.009
+[90,   600] loss: 0.010
+[90,   800] loss: 0.009
+[90,  1000] loss: 0.010
+[90,  1200] loss: 0.010
+[90,  1400] loss: 0.009
+[90,  1600] loss: 0.009
+Accuracy of the network on the 432 test keys: 84.02777777777777%
+[91,   200] loss: 0.010
+[91,   400] loss: 0.011
+[91,   600] loss: 0.013
+[91,   800] loss: 0.011
+[91,  1000] loss: 0.009
+[91,  1200] loss: 0.009
+[91,  1400] loss: 0.012
+[91,  1600] loss: 0.010
+Accuracy of the network on the 432 test keys: 64.58333333333333%
+[92,   200] loss: 0.031
+[92,   400] loss: 0.010
+[92,   600] loss: 0.008
+[92,   800] loss: 0.008
+[92,  1000] loss: 0.008
+[92,  1200] loss: 0.008
+[92,  1400] loss: 0.007
+[92,  1600] loss: 0.009
+Accuracy of the network on the 432 test keys: 84.02777777777777%
+[93,   200] loss: 0.007
+[93,   400] loss: 0.008
+[93,   600] loss: 0.008
+[93,   800] loss: 0.009
+[93,  1000] loss: 0.008
+[93,  1200] loss: 0.008
+[93,  1400] loss: 0.008
+[93,  1600] loss: 0.008
+Accuracy of the network on the 432 test keys: 81.48148148148148%
+[94,   200] loss: 0.009
+[94,   400] loss: 0.007
+[94,   600] loss: 0.008
+[94,   800] loss: 0.074
+[94,  1000] loss: 0.017
+[94,  1200] loss: 0.008
+[94,  1400] loss: 0.010
+[94,  1600] loss: 0.008
+Accuracy of the network on the 432 test keys: 85.18518518518519%
+[95,   200] loss: 0.006
+[95,   400] loss: 0.008
+[95,   600] loss: 0.007
+[95,   800] loss: 0.007
+[95,  1000] loss: 0.006
+[95,  1200] loss: 0.006
+[95,  1400] loss: 0.008
+[95,  1600] loss: 0.007
+Accuracy of the network on the 432 test keys: 83.10185185185185%
+[96,   200] loss: 0.007
+[96,   400] loss: 0.010
+[96,   600] loss: 0.099
+[96,   800] loss: 0.016
+[96,  1000] loss: 0.008
+[96,  1200] loss: 0.007
+[96,  1400] loss: 0.007
+[96,  1600] loss: 0.007
+Accuracy of the network on the 432 test keys: 84.95370370370371%
+[97,   200] loss: 0.006
+[97,   400] loss: 0.006
+[97,   600] loss: 0.006
+[97,   800] loss: 0.007
+[97,  1000] loss: 0.007
+[97,  1200] loss: 0.007
+[97,  1400] loss: 0.006
+[97,  1600] loss: 0.007
+Accuracy of the network on the 432 test keys: 82.63888888888889%
+[98,   200] loss: 0.007
+[98,   400] loss: 0.008
+[98,   600] loss: 0.007
+[98,   800] loss: 0.007
+[98,  1000] loss: 0.006
+[98,  1200] loss: 0.008
+[98,  1400] loss: 0.010
+[98,  1600] loss: 0.009
+Accuracy of the network on the 432 test keys: 84.25925925925925%
+[99,   200] loss: 0.006
+[99,   400] loss: 0.008
+[99,   600] loss: 0.007
+[99,   800] loss: 0.006
+[99,  1000] loss: 0.008
+[99,  1200] loss: 0.011
+[99,  1400] loss: 0.008
+[99,  1600] loss: 0.008
+Accuracy of the network on the 432 test keys: 83.10185185185185%
+[100,   200] loss: 0.006
+[100,   400] loss: 0.006
+[100,   600] loss: 0.008
+[100,   800] loss: 0.014
+[100,  1000] loss: 0.007
+[100,  1200] loss: 0.008
+[100,  1400] loss: 0.009
+[100,  1600] loss: 0.005
+Accuracy of the network on the 432 test keys: 85.64814814814815%
+Finished Training
+Saving model in out/raw_sentence/models/fc_nn_model_20:34:40.987808.txt
+Accuracy of the network on the 115 test keys: 69.56521739130434%
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/classifyKeystrokes.py 
+--- Classify Keystrokes ---
+/usr/local/lib/python3.7/site-packages/librosa/filters.py:222: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  warnings.warn('Empty filters detected in mel frequency basis. '
+Accuracy of the network on the 115 test keys: 69.56521739130434%
+Predicted sentence:
+fessof coerze dtct jzpe woris in x jefr racuuj djct txpe worrs rnpwrere frctetjpebis mtgic zmd siruof bw wobmhippex
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ /Users/cristinanoujaim/Dropbox/eecs588/Keyboard-Acoustic-Emanations-Python 
+-bash: /Users/cristinanoujaim/Dropbox/eecs588/Keyboard-Acoustic-Emanations-Python: is a directory
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/typingpractice2.wav recordings/typingpractice2
+Found 323 keystrokes in data
+Keystrokes are the same length as labels is...: True
+------- VISUALIZE KEYSTROKES --------
+Found 323 keystrokes in data
+Drawing keystrokes...
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/classifyKeystrokes.py 
+--- Classify Keystrokes ---
+/usr/local/lib/python3.7/site-packages/librosa/filters.py:222: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  warnings.warn('Empty filters detected in mel frequency basis. '
+Accuracy of the network on the 323 test keys: 56.96594427244582%
+Predicted sentence:
+rut widt fccton or coqbojation of fyctogx xzy izfebcxyred tiebtftijeq oj rhe eccwbrf mefoterrnrefu furinq thrzs jecafbs reutiufbujcertzij eiereurc tiyt tiiit re cijrmixirer ijcrude wbr rjr pljtues oc insects bjt ciirzfescorrgesxccrtpztoef rf fzorgit is tore liierr to iuresttruex r ojcegrrrrnjt icur ieto xm rrid sejifbsrrf
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux 
+-bash: tmux: command not found
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ pip install tmux
+ERROR: Could not find a version that satisfies the requirement tmux (from versions: none)
+ERROR: No matching distribution found for tmux
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ sudo apt-get tmux
+Password:
+sudo: apt-get: command not found
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ brew install tmux
+Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 1 tap (homebrew/core).
+==> New Formulae
+adios2              devdash             kind                mysql-client@5.7    php@7.3             tweak
+bingrep             diesel              krew                nbdime              postgresql@11       vale
+calceph             dune                liblouis            node@12             pympress            virustotal-cli
+cargo-c             gimme-aws-creds     libtorch            oauth2l             rav1e               xlearn
+cartridge-cli       gmt@5               manticoresearch     onnxruntime         samurai
+cf-tool             gnirehtet           monolith            openjdk             sentencepiece
+comby               helm@2              mpi4py              openjdk@11          tio
+cups                jd                  mpv                 openjdk@12          trader
+==> Updated Formulae
+python ✔                       frps                           llvm@6                         residualvm
+sqlite ✔                       frugal                         llvm@7                         restic
+abcl                           fs-uae                         llvm@8                         rethinkdb
+abcm2ps                        fselect                        lmod                           rex
+abcmidi                        futhark                        logstash                       rgbds
+abyss                          fwup                           logtalk                        rke
+ace                            fx                             macvim                         rocksdb
+ack                            fzf                            mame                           rom-tools
+adwaita-icon-theme             gatsby-cli                     mapserver                      root
+alexjs                         gcc                            mariadb                        rpm
+aliyun-cli                     gcc@6                          mariadb-connector-c            rrdtool
+amazon-ecs-cli                 gcc@7                          mariadb-connector-odbc         ruby-build
+ammonite-repl                  gcc@8                          mariadb@10.1                   rust
+ampl-mp                        gdal                           mariadb@10.2                   s3-backer
+angular-cli                    gdcm                           mariadb@10.3                   s3ql
+annie                          gedit                          math-comp                      s6
+ansible                        geoipupdate                    maven                          salt
+ansible-lint                   gerbv                          maxwell                        sbcl
+ansifilter                     ghq                            mdbook                         sbt
+ansiweather                    giflib                         memcached                      scalapack
+antlr4-cpp-runtime             gifski                         menhir                         scamper
+apache-arrow                   git                            mercurial                      scc
+apache-arrow-glib              git-annex                      mesa                           scipy
+apktool                        git-archive-all                metricbeat                     scrcpy
+arangodb                       git-cola                       mgba                           screenfetch
+arm-linux-gnueabihf-binutils   git-delta                      micronaut                      scummvm
+armadillo                      git-revise                     minica                         scummvm-tools
+arp-scan                       git-town                       minikube                       serverless
+asdf                           gitfs                          mkcert                         sfst
+ask-cli                        gitlab-runner                  mkl-dnn                        shadowenv
+assimp                         gitleaks                       mkvtoolnix                     shadowsocks-libev
+atlantis                       gitmoji                        mlt                            shairport-sync
+audacious                      gitversion                     mockserver                     shared-mime-info
+auditbeat                      gjs                            monero                         shogun
+aws-cdk                        glib                           monetdb                        simple-scan
+aws-google-auth                glooctl                        mono-libgdiplus                simutrans
+aws-okta                       glslang                        mosh                           singular
+aws-sdk-cpp                    gmic                           mosquitto                      sip
+awscli                         gmime                          mpg123                         siril
+awsume                         gmsh                           mpich                          sispmctl
+axel                           gmt                            mutt                           skaffold
+azure-cli                      gnumeric                       mydumper                       skafos
+babel                          gnunet                         mypy                           skopeo
+babeld                         gnupg                          mysql                          slowhttptest
+badtouch                       gnuplot                        mysql++                        smali
+balena-cli                     gnutls                         mysql-client                   sn0int
+ballerina                      go                             mysql-connector-c++            snakemake
+basex                          go-bindata                     mysql-connector-c++@1.1        snapcraft
+batik                          go@1.12                        mysql@5.6                      solr
+bazel                          godep                          mytop                          sonobuoy
+bee                            goffice                        n                              sops
+berglas                        gomplate                       nats-server                    sord
+bibutils                       goofys                         navi                           sourcedocs
+bind                           google-authenticator-libpam    neko                           sourcekitten
+binutils                       googler                        neo4j                          sparkey
+bit                            goreleaser                     neomutt                        sparse
+bitcoin                        goreman                        neovim                         spigot
+bitrise                        gource                         netdata                        sqldiff
+black                          gradle                         netlify-cli                    sqlite-analyzer
+blastem                        grafana                        newman                         sqlmap
+blockhash                      grakn                          nghttp2                        squid
+bluepill                       graph-tool                     ngt                            sratom
+bnd                            groonga                        nifi                           sratoolkit
+boot-clj                       grpc                           nifi-registry                  ssh-audit
+borgmatic                      gst-editing-services           nlohmann-json                  ssh-copy-id
+breezy                         gst-libav                      nnn                            ssldump
+broot                          gst-plugins-bad                node                           stanford-corenlp
+buildkit                       gst-plugins-base               node-build                     starship
+bulk_extractor                 gst-plugins-good               node_exporter                  stellar-core
+bullet                         gst-plugins-ugly               nodenv                         streamlink
+bundletool                     gst-python                     nomad                          stress-ng
+bup                            gst-rtsp-server                now-cli                        stunnel
+byacc                          gst-validate                   nsd                            subversion
+byteman                        gstreamer                      nss                            suil
+cabal-install                  gtk-gnutella                   ntopng                         suite-sparse
+caddy                          gwyddion                       nuget                          sundials
+caf                            h3                             numpy                          swagger-codegen
+caffe                          handbrake                      nushell                        swagger-codegen@2
+calicoctl                      hapi-fhir-cli                  nut                            swiftformat
+cargo-completion               haproxy                        nvm                            swiftlint
+carla                          harfbuzz                       ocrmypdf                       sxiv
+cash-cli                       haxe                           octant                         syncthing
+catch2                         hcloud                         octave                         synscan
+ccache                         helmfile                       octomap                        sysbench
+ceres-solver                   highlight                      offlineimap                    taskell
+cfn-lint                       hledger                        omega                          tcsh
+cfssl                          hlint                          onefetch                       tektoncd-cli
+chafa                          hub                            oniguruma                      telegraf
+chamber                        hugo                           onioncat                       teleport
+charm-tools                    hydra                          onscripter                     temporal_tables
+cheat                          hyperfine                      opa                            tepl
+checkstyle                     hyperscan                      open-zwave                     termshark
+chromaprint                    hypre                          openal-soft                    termtosvg
+cimg                           i2p                            openapi-generator              terraform
+citus                          i386-elf-binutils              opencascade                    terraformer
+ckan                           icecream                       openfortivpn                   terragrunt
+clac                           imagemagick                    openimageio                    terrahub
+clamav                         imagemagick@6                  openrct2                       tflint
+cling                          imageoptim-cli                 openvpn                        thrift
+cln                            imapfilter                     operator-sdk                   thrift@0.9
+clojure                        imapsync                       orc                            tig
+cmake                          imlib2                         orc-tools                      tiger-vnc
+cmatrix                        include-what-you-use           osc                            tile38
+cminpack                       infer                          osmium-tool                    timewarrior
+cointop                        inlets                         osquery                        tintin
+composer                       innotop                        pachi                          tmate
+conan                          ios-webkit-debug-proxy         packer                         tmux
+console_bridge                 ipbt                           paket                          tmuxinator
+consul                         ipmiutil                       pandoc                         tnef
+consul-template                ipopt                          pandoc-citeproc                todoman
+contentful-cli                 ispc                           pandoc-crossref                tokei
+convox                         istioctl                       paps                           tomcat
+coq                            itk                            parallel                       tomcat@8
+couchdb                        jailkit                        passenger                      topgrade
+cstore_fdw                     janet                          pcre2                          tox
+csvq                           jenkins                        pdf2htmlex                     traefik
+curl                           jenkins-lts                    pdns                           transmission-cli
+curl-openssl                   jetty                          percona-server                 triton
+cython                         jfrog-cli-go                   percona-toolkit                ttyd
+dafny                          jhipster                       percona-xtrabackup             tunnel
+darksky-weather                jmeter                         perl-build                     typescript
+dartsim                        jo                             petsc                          ucloud
+dasm                           joplin                         petsc-complex                  um
+dav1d                          jruby                          pgbouncer                      unbound
+dbhash                         jsvc                           pgloader                       uncrustify
+dcmtk                          juju                           pgpool-ii                      ungit
+dcos-cli                       just                           pgroonga                       unrar
+deark                          jvgrep                         pgrouting                      urbit
+deno                           kallisto                       php                            urh
+dependency-check               kepubify                       php-code-sniffer               uwsgi
+deployer                       kitchen-sync                   php-cs-fixer                   v8
+devspace                       kops                           php@7.2                        vagrant-completion
+di                             kotlin                         phpmyadmin                     vala
+diamond                        ksh                            phpstan                        vamp-plugin-sdk
+dita-ot                        ktlint                         phpunit                        vapoursynth
+dive                           kube-aws                       pianobar                       vapoursynth-imwri
+django-completion              kubebuilder                    pianod                         vapoursynth-ocr
+dmtx-utils                     kubecfg                        picard-tools                   vapoursynth-sub
+dnscrypt-proxy                 kubectx                        pioneer                        vault
+dnstwist                       kubernetes-cli                 plantuml                       velero
+dnsviz                         kubeseal                       platformio                     verilator
+docker                         kustomize                      pmd                            vert.x
+docker-completion              kyma-cli                       pnpm                           vfuse
+docker-compose                 lazydocker                     ponyc                          vice
+docker-compose-completion      lazygit                        postgis                        vim
+doctl                          ledger                         postgresql                     vim@7.4
+doitlive                       lego                           postgresql@10                  vips
+drafter                        leptonica                      postgresql@9.4                 virgil
+duck                           lerna                          postgresql@9.5                 virtuoso
+duplicity                      libcapn                        postgresql@9.6                 vit
+dust                           libcoap                        pqiv                           vte3
+dvc                            libcouchbase                   prestodb                       vtk
+dxpy                           libedit                        prestosql                      vulkan-headers
+dynare                         libepoxy                       prettier                       wal2json
+eccodes                        libetpan                       procs                          watchexec
+elasticsearch                  libevhtp                       proftpd                        wget
+elektra                        libftdi                        proj                           whois
+elixir                         libgraphqlparser               proteinortho                   wiiuse
+elm                            libgusb                        protobuf                       wiki
+embulk                         libheif                        protobuf-c                     wireguard-go
+envconsul                      libidn2                        pspg                           wireguard-tools
+eprover                        libimobiledevice               psqlodbc                       wolfssl
+erlang                         libmaxminddb                   pulumi                         wp-cli
+erlang@20                      libming                        purescript                     wtf
+eslint                         libopenmpt                     pushpin                        wtfutil
+ethereum                       libosmium                      pyenv                          wxmaxima
+evince                         libpeas                        pylint                         wxpython
+exploitdb                      libphonenumber                 pypy                           x265
+eye-d3                         libplist                       pypy3                          xa
+faas-cli                       libpq                          pyqt                           xapian
+fabio                          libpqxx                        pyside                         xcodegen
+fauna-shell                    libpulsar                      python-yq                      xplanet
+ffmpeg                         libqalculate                   qalculate-gtk                  xtensor
+ffmpeg@2.8                     librdkafka                     qbs                            yacas
+ffsend                         librealsense                   qemu                           yadm
+fibjs                          libressl                       qhull                          yafc
+fig2dev                        librsvg                        qjackctl                       yaml-cpp
+file-roller                    libsass                        qpdf                           yapf
+firebase-cli                   libsodium                      qscintilla2                    yarn
+flake8                         libsoup                        qstat                          yelp-tools
+flow                           libssh                         qt                             yle-dl
+fluid-synth                    libtasn1                       quex                           youtube-dl
+fluxctl                        libtiff                        qxmpp                          yq
+flyway                         libtommath                     rabbitmq                       z3
+fmt                            libtorrent-rasterbar           rabbitmq-c                     zabbix
+folly                          libtrace                       rancher-cli                    zbackup
+fontforge                      libvirt                        rargs                          zbar
+fonttools                      libxlsxwriter                  rclone                         zint
+fop                            libxml2                        rdesktop                       zola
+fork-cleaner                   libxslt                        re2                            zopfli
+freeradius-server              libzdb                         redis                          zrepl
+freerdp                        lightgbm                       remind                         zstd
+freeswitch                     lilv                           reminiscence                   zydis
+frpc                           llvm                           repo
+==> Renamed Formulae
+bro -> zeek                    jupyter -> jupyterlab          kubernetes-helm -> helm        usbmuxd -> libusbmuxd
+==> Deleted Formulae
+aiccu               cockroach           gmt@4               llvm@4              openssl             riak
+ansible@1.9         dcal                gmtl                mariadb@10.0        php@7.1             ruby@2.0
+ansible@2.0         erlang@17           grib-api            mysql-connector-c   pound               shocco
+bdsup2sub           erlang@19           hana                mysql@5.5           raine               wine
+
+==> Installing dependencies for tmux: libevent and ncurses
+==> Installing tmux dependency: libevent
+==> Downloading https://homebrew.bintray.com/bottles/libevent-2.1.11_1.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/1e/1e14fc34baae0b65cac6d7c75bc5ed0ccb1f6bbaa30c8f0f8477ab8ba85fb3c5?__gda_
+######################################################################## 100.0%
+==> Pouring libevent-2.1.11_1.mojave.bottle.tar.gz
+🍺  /usr/local/Cellar/libevent/2.1.11_1: 1,063 files, 5MB
+==> Installing tmux dependency: ncurses
+==> Downloading https://homebrew.bintray.com/bottles/ncurses-6.1.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/01/01e031f6bb1513edcb26d78a15dc5e85969c42e9dc40ae3cbc3535982658abc0?__gda_
+######################################################################## 100.0%
+==> Pouring ncurses-6.1.mojave.bottle.tar.gz
+==> Caveats
+ncurses is keg-only, which means it was not symlinked into /usr/local,
+because macOS already provides this software and installing another version in
+parallel can cause all kinds of trouble.
+
+If you need to have ncurses first in your PATH run:
+  echo 'export PATH="/usr/local/opt/ncurses/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find ncurses you may need to set:
+  export LDFLAGS="-L/usr/local/opt/ncurses/lib"
+  export CPPFLAGS="-I/usr/local/opt/ncurses/include"
+
+==> Summary
+🍺  /usr/local/Cellar/ncurses/6.1: 3,869 files, 8.3MB
+==> Installing tmux
+==> Downloading https://homebrew.bintray.com/bottles/tmux-3.0a.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/6c/6cfd3987dcda2901a3ed423138db7782ea88a993e1409c4ebb9d647b1c007e8a?__gda_
+######################################################################## 100.0%
+==> Pouring tmux-3.0a.mojave.bottle.tar.gz
+==> Caveats
+Example configuration has been installed to:
+  /usr/local/opt/tmux/share/tmux
+
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+==> Summary
+🍺  /usr/local/Cellar/tmux/3.0a: 9 files, 802.5KB
+==> `brew cleanup` has not been run in 30 days, running now...
+Removing: /Users/cristinanoujaim/Library/Caches/Homebrew/python--3.7.4_1.mojave.bottle.1.tar.gz... (14.7MB)
+Removing: /Users/cristinanoujaim/Library/Caches/Homebrew/sqlite--3.29.0.mojave.bottle.tar.gz... (1.9MB)
+Removing: /Users/cristinanoujaim/Library/Logs/Homebrew/gdbm... (64B)
+Removing: /Users/cristinanoujaim/Library/Logs/Homebrew/python... (3 files, 141.3KB)
+Removing: /Users/cristinanoujaim/Library/Logs/Homebrew/readline... (64B)
+Removing: /Users/cristinanoujaim/Library/Logs/Homebrew/sqlite... (64B)
+Removing: /Users/cristinanoujaim/Library/Logs/Homebrew/xz... (64B)
+Removing: /Users/cristinanoujaim/Library/Logs/Homebrew/openssl@1.1... (64B)
+Pruned 0 symbolic links and 2 directories from /usr/local
+==> Caveats
+==> ncurses
+ncurses is keg-only, which means it was not symlinked into /usr/local,
+because macOS already provides this software and installing another version in
+parallel can cause all kinds of trouble.
+
+If you need to have ncurses first in your PATH run:
+  echo 'export PATH="/usr/local/opt/ncurses/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find ncurses you may need to set:
+  export LDFLAGS="-L/usr/local/opt/ncurses/lib"
+  export CPPFLAGS="-I/usr/local/opt/ncurses/include"
+
+==> tmux
+Example configuration has been installed to:
+  /usr/local/opt/tmux/share/tmux
+
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 src/readKeystrokes.py recordings/typingpractice3.wav recordings/typingpractice3
+Found 478 keystrokes in data
+Keystrokes are the same length as labels is...: False
+------- VISUALIZE KEYSTROKES --------
+Found 478 keystrokes in data
+Drawing keystrokes...
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ 
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+[detached (from session 0)]
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ tmux a
+
+[498,   600] loss: 0.000
+[498,   800] loss: 0.000
+[498,  1000] loss: 0.000
+[498,  1200] loss: 0.000
+[498,  1400] loss: 0.000
+[498,  1600] loss: 0.000
+[498,  1800] loss: 0.000
+Accuracy of the network on the 455 test keys: 87.6923076923077%
+[499,   200] loss: 0.000
+[499,   400] loss: 0.000
+[499,   600] loss: 0.000
+[499,   800] loss: 0.000
+[499,  1000] loss: 0.000
+[499,  1200] loss: 0.000
+[499,  1400] loss: 0.000
+[499,  1600] loss: 0.000
+[499,  1800] loss: 0.000
+Accuracy of the network on the 455 test keys: 87.03296703296704%
+[500,   200] loss: 0.000
+[500,   400] loss: 0.000
+[500,   600] loss: 0.000
+[500,   800] loss: 0.000
+[500,  1000] loss: 0.000
+[500,  1200] loss: 0.000
+[500,  1400] loss: 0.000
+[500,  1600] loss: 0.000
+[500,  1800] loss: 0.000
+Accuracy of the network on the 455 test keys: 87.03296703296704%
+Finished Training
+Saving model in out/raw_sentence/models/fc_nn_model_10:51:20.187248.txt
+Accuracy of the network on the 323 test keys: 71.51702786377709%
+Predicted sentence:
+but what rrcton or cozbonttior oc fyctorz ran huse rxured tie eatiubd kn rhe psutern uefiterrauetu durink tibze tecadrs renaeuf uncertaen ekbubnts tiat niirt be consxixerer ircluxe wgr rnd plaguex oc insects but critaje charge arcguparied ru ygought is rore liseku to hsrw turuex s once rerdajt kajr into xn arid sbjisesert
+Cristinas-MacBook:Keyboard-Acoustic-Emanations-Python cristinanoujaim$ python3 
+
+[0] 0:bash*                                                                                            "Cristinas-MacBook.loc" 10:57 05-Dec-19
