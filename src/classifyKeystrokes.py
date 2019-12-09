@@ -19,8 +19,6 @@ from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 import torch.optim as optim
 
-from hmmlearn import hmm
-
 
 class KeyDataLoader(Dataset):
     """Dataloader."""
@@ -208,7 +206,6 @@ class ClassifyKeystrokes:
         cur_word = []
         for i in range(len(labels)):
             if (convertnumber(np.argmax(labels[i])) == " "):
-                print(cur_word)
                 sentence.append(cur_word)
                 cur_word = []
             else:
@@ -217,9 +214,11 @@ class ClassifyKeystrokes:
                 top_letters = [convertnumber(i) for i in top_indices]
                 cur_word.append(top_letters)
 
+
         sentence.append(cur_word)
 
-        spell.word_frequency.load_text_file('./my_free_text_doc.txt')
+        with open('out/raw_sentence/out_text.json', 'w') as f:
+            json.dump(sentence, f)
 
 
 def main():
