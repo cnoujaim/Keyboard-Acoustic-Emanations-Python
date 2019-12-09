@@ -11,7 +11,7 @@ def spellchecker(misspelled):
     cands = []
 
     for word in misspelled:
-        corrected.append(spell.candidates(word))
+        cands.append(spell.candidates(word))
 
     return cands
 
@@ -25,7 +25,8 @@ def generate_n_grams(word, n):
 def correct_sentence(content):
     misspelled = content.split(" ")
     candidates = spellchecker(misspelled)
-    
+    print(candidates)
+
 
 def main():
     print("Refine key prediction...")
@@ -40,7 +41,7 @@ def main():
     print("Original sentence:")
     print(content)
 
-    newsentence = spellchecker(content)
+    newsentence = spellchecker(content.split(" "))
     print("Refined sentence:")
     print(newsentence)
 

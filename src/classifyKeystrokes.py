@@ -106,7 +106,7 @@ class ClassifyKeystrokes:
         self.trainloader = DataLoader(self.dataset, sampler=train_sampler)
         self.validloader = DataLoader(self.dataset, sampler=valid_sampler)
         self.net = KeyNet()
-        class3 = "None" #"out/raw_sentence/models/fc_nn_model_23:31:42.198260.txt"
+        class3 = "out/raw_sentence/models/fc_nn_model_10:51:20.187248.txt"
         if os.path.exists(class3):
             self.net.load_state_dict(torch.load(class3))
         else:
@@ -169,7 +169,6 @@ class ClassifyKeystrokes:
 
         acc = 100 * correct / total
         print(f'Accuracy of the network on the {len(self.validloader)} test keys: {acc}%')
-        # print(f'Percent increase: {(acc - (100/27))/(100/27) * 100}%')
         return acc
 
     def validate_sentence(self):
@@ -181,13 +180,11 @@ class ClassifyKeystrokes:
             for data in self.validloader:
                 images, labels = data
                 outputs = self.net(images)
-                # print(images)
-                # print(f"outputs {outputs}"
+
+                full_labels.append(outputs)
 
                 _, predicted = torch.max(outputs.data, 1)
-                # print(predicted)
                 sentence += convertnumber(predicted)
-                full_labels.append(predicted)
                 total += 1
                 correct += (predicted == labels).sum().item()
 
@@ -195,9 +192,10 @@ class ClassifyKeystrokes:
         print(f'Accuracy of the network on the {len(self.validloader)} test keys: {acc}%')
         print(f"Predicted sentence:")
         print(sentence)
-        # print("APPLY HMMS")
-        # full_labels = np.stack(full_labels, axis=0)
-        # final = self.correct_with_hmm(full_labels)
+        print("")
+        print("Apply corrections")
+        full_labels = np.stack(full_labels, axis=0)
+        final = self.correct_with_prob(full_labels)
         return acc
 
     def savemodel(self):
@@ -205,70 +203,23 @@ class ClassifyKeystrokes:
         print(f'Saving model in {path}')
         torch.save(self.net.state_dict(), path)
 
-    def correct_with_hmm(self, labels):
-        print("Training model...")
-        model = None
+    def correct_with_prob(self, labels):
+        sentence = []
+        cur_word = []
+        for i in range(len(labels)):
+            if (convertnumber(np.argmax(labels[i])) == " "):
+                print(cur_word)
+                sentence.append(cur_word)
+                cur_word = []
+            else:
+                top_indices = np.flip(np.argsort(labels[i])[0])[:4]
+                # print(top_indices)
+                top_letters = [convertnumber(i) for i in top_indices]
+                cur_word.append(top_letters)
 
-        for i in range(20):
-            print(f"-- Run iteration {i} --")
-            # labels = np.reshape(labels, (-1, 1))
-            model = self.hmm(labels)
-            print(f"Log probability for this model is {model.score(labels)}")
-            # acc = self.accuracy(model, model.predict(clusters))
-            # print(f"Accuracy for this model is {acc}")
+        sentence.append(cur_word)
 
-            print(f"Prediction for this model is {self.print_predict(model.predict(labels))}")
-
-        return self.print_predict(model.predict(labels))
-
-    def hmm(self, labels):
-        '''Use HMM's to learn keystroke information'''
-        print("Learning Hidden Markov Model...")
-        print(labels.shape)
-        # Learn transition probabilities from tv corpora
-        transmat = self.getTransitionProb()
-
-        model = hmm.GaussianHMM(n_components=27, covariance_type="diag", n_iter=1000, init_params="mcs")
-        model.transmat_ = transmat
-        model.fit(labels)
-        return model
-
-
-    def getTransitionProb(self):
-        '''Calculate transition probabilties from txtsrc'''
-        print("Get Transition Probabilities...")
-        t_prob_file = "out/raw_sentence/transitionprob.txt"
-        if os.path.exists(t_prob_file):
-            return np.loadtxt(t_prob_file)
-        src_files = []
-        for path, dirs, files in os.walk('txtsrc'):
-            for file in files:
-                src_files.append(os.path.join(path, file))
-
-        t_prob = np.zeros((27, 27))
-
-        for file in src_files:
-            with open(file, "r") as f:
-                data = f.read().lower()
-                data = " ".join(re.findall("[a-z]+", data))
-                for i in range(1, len(data)):
-                    t_prob[self.convertletter(data[i-1])][self.convertletter(data[i])] += 1
-
-        t_prob = sklearn.preprocessing.normalize(t_prob, axis=1, norm='l1')
-        np.savetxt(t_prob_file, t_prob)
-        return t_prob
-
-    def convertletter(self, l):
-        i = ord(l) - ord('a')
-        if i < 0 or i > 25:
-            i = 26
-        return torch.tensor(i).long()
-
-    def print_predict(self, output):
-        string = ""
-        for o in output:
-            string += convertnumber(o)
-        return string
+        spell.word_frequency.load_text_file('./my_free_text_doc.txt')
 
 
 def main():
