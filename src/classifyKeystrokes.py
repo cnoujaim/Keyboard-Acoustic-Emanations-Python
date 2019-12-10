@@ -209,7 +209,7 @@ class ClassifyKeystrokes:
                 sentence.append(cur_word)
                 cur_word = []
             else:
-                top_indices = np.flip(np.argsort(labels[i])[0])[:4]
+                top_indices = np.flip(np.argsort(labels[i])[0])[:5]
                 # print(top_indices)
                 top_letters = [convertnumber(i) for i in top_indices]
                 cur_word.append(top_letters)
@@ -217,7 +217,7 @@ class ClassifyKeystrokes:
 
         sentence.append(cur_word)
 
-        with open('out/raw_sentence/out_text.json', 'w') as f:
+        with open('out/raw_sentence/out_text_5.json', 'w') as f:
             json.dump(sentence, f)
 
 
