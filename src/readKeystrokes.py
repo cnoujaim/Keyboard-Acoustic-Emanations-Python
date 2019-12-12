@@ -7,6 +7,7 @@ https://github.com/shoyo-inokuchi/acoustic-keylogger-research.
 import os
 import sys
 import json
+import math
 
 from copy import deepcopy
 
@@ -18,12 +19,32 @@ import sqlalchemy.orm as orm
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects import postgresql
 
+from numpy import sin, linspace, pi
+from pylab import plot, show, title, xlabel, ylabel, subplot
+from scipy import fft, arange
+
 
 import scipy
 import scipy.signal
 
 SAMPLE_RATE = 44100
 
+
+def plotSpectrum(y,Fs):
+    """
+    Plots a Single-Sided Amplitude Spectrum of y(t)
+    """
+    n = len(y) # length of the signal
+    k = arange(n)
+    T = n/Fs
+    frq = k/T # two sides frequency range
+    frq = frq[:2000]
+    print(len(frq))
+
+    Y = fft(y)/n # fft computing and normalization
+    Y = Y[:2000]
+
+    return frq, abs(Y)
 
 def find_peaks(data, distance=1, threshold=0.1):
     peaks = []
@@ -93,20 +114,32 @@ def detect_keystrokes(sound_data, sample_rate=SAMPLE_RATE, output=True, num_peak
 
 # Display detected keystrokes (WAV file -> all keystroke graphs)
 
-def visualize_keystrokes(filepath):
+def visualize_keystrokes(filepath, label='a'):
     print("------- VISUALIZE KEYSTROKES --------")
     """Display each keystroke detected in WAV file specified by filepath."""
     wav_data = wav_read(filepath)
     keystrokes = detect_keystrokes(wav_data)
-    n = 20
+    n = 1
     print('Drawing keystrokes...')
     num_cols = 3
     num_rows = n/num_cols + 1
-    plt.figure(figsize=(num_cols * 6, num_rows * .75))
+    # plt.figure(figsize=(num_cols * 6, num_rows * .75))
     for i in range(min(n, len(keystrokes))):
-        plt.subplot(num_rows, num_cols, i + 1)
-        plt.title(f'Index: {i}')
+
         plt.plot(np.array(keystrokes[i][0]))
+        plt.xlabel('Time')
+        plt.ylabel('Amplitude')
+        plt.savefig(f"acoustic_signal_{keystrokes[i][1]}.png")
+        plt.show()
+        plt.close()
+
+        frq, y = plotSpectrum(np.array(keystrokes[i][0]), SAMPLE_RATE)
+        plt.plot(frq,y,'r') # plotting the spectrum
+        plt.xlabel('Frequency (Hz)')
+        plt.ylabel('Magnitude')
+        plt.savefig(f"frequency_spectrum_{keystrokes[i][1]}.png")
+        plt.show()
+        plt.close()
     plt.show()
 
 
@@ -136,7 +169,12 @@ def main():
 
     x_axis = [(i/SAMPLE_RATE) for i in range(len(wav_data))]
     plt.plot(x_axis, wav_data)
-    plt.show()
+    plt.xlabel("Time")
+    plt.ylabel("Amplitude")
+    title = filepath.split("/")[-1]
+    plt.savefig(f"fullfig_{title}.png")
+    plt.close()
+
 
     num_peaks, labels = getLabels(txtpath)
 
@@ -144,6 +182,6 @@ def main():
     print(f"Keystrokes are the same length as labels is...: {len(keystrokes) == len(labels)}")
     with open(outfile, 'w') as f:
         f.write(json.dumps(keystrokes))
-    visualize_keystrokes(filepath)
+    visualize_keystrokes(filepath, label = "a")
 
 main()
