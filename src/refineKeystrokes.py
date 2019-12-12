@@ -139,18 +139,12 @@ def main():
     for word in predicted_text:
         if aspeller.check(word) or word in english_words:
             predicted_checked.append(word)
-        elif len(word) < 5:
-            pyspell = spell.correction(word)
-            if aspeller.check(pyspell) or pyspell in english_words:
-                predicted_checked.append(pyspell)
-            else:
-                predicted_checked.append(word)
         else:
             pyspell = spell.correction(word)
-            if aspeller.check(pyspell) or pyspell in english_words:
+            if len(pyspell) == len(word) and aspeller.check(pyspell):
                 predicted_checked.append(pyspell)
             else:
-                suggestions = aspeller.suggest(word)
+                suggestions = [w for w in aspeller.suggest(word) if len(w) == len(word)]
                 if len(suggestions) > 0:
                     predicted_checked.append(suggestions[0])
                 else:
@@ -168,5 +162,11 @@ def main():
     num_correct = sum([w1 == w2 for w1, w2 in zip(predicted_checked, correct)])
     print("num_correct: " + str(num_correct) + " / " + str(len(correct)))
 
+    for i in range(len(predicted_text)):
+        aspell_s = list(aspeller.suggest(predicted_text[i]))
+        pyspell_s = list(spell.candidates(predicted_text[i]))
+        print(predicted_text[i] + " (" + correct[i] + "): ")
+        print("\tpyspell: " + str([word for word in pyspell_s[:3]]))
+        print("\taspell: " + str([word for word in aspell_s[:3]]))
 
 main()
