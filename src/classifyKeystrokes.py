@@ -8,6 +8,7 @@ import torch
 import json
 import copy
 import datetime
+import operator
 
 import numpy as np
 from sklearn.cluster import KMeans
@@ -18,6 +19,8 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 import torch.optim as optim
+from collections import defaultdict, Counter
+
 
 
 class KeyDataLoader(Dataset):
@@ -87,7 +90,6 @@ class KeyNet(nn.Module):
 class ClassifyKeystrokes:
     '''Classifies keystrokes using clustering and HMMs'''
     def __init__(self, files, shuffle=True):
-        self.freq_letters = [26, 4, 19, 0, 14, 8, 13, 18, 17, 7, 11, 3, 2, 20, 12, 5, 15, 6, 22, 24, 1, 21, 10, 23, 9, 16, 25]
         self.dataset = KeyDataLoader(files)
         validation_split = .2
 
@@ -104,16 +106,60 @@ class ClassifyKeystrokes:
         self.trainloader = DataLoader(self.dataset, sampler=train_sampler)
         self.validloader = DataLoader(self.dataset, sampler=valid_sampler)
         self.net = KeyNet()
-        class3 = "out/raw_sentence/models/fc_nn_model_10:51:20.187248.txt"
-        if os.path.exists(class3):
-            self.net.load_state_dict(torch.load(class3))
+
+        model2 = "out/raw_sentence/models/fc_nn_model_10:51:20.187248.txt"
+        if os.path.exists(model2):
+            self.net.load_state_dict(torch.load(model2))
         else:
             self.classify()
             self.savemodel()
 
+        # self.validate_sentence()
+
         valid = KeyDataLoader(["out/keystrokes/typingpractice2.wav_out"])
+        with open("recordings/typingpractice2", 'r') as file:
+            self.labels  = file.read().strip('\n')
         self.validloader = DataLoader(valid)
+        # self.group_classifier()
+
+        self.validate()
         self.validate_sentence()
+
+    def group_classifier(self):
+        model1 = "out/raw_sentence/models/fc_nn_model_20:34:40.987808.txt"
+        model2 = "out/raw_sentence/models/fc_nn_model_10:51:20.187248.txt"
+        model3 = "out/raw_sentence/models/fc_nn_model_20:17:42.197975.txt"
+
+        self.net.load_state_dict(torch.load(model1))
+        acc1, sentence1 = self.validate_sentence()
+
+        self.net.load_state_dict(torch.load(model2))
+        acc2, sentence2 = self.validate_sentence()
+
+        self.net.load_state_dict(torch.load(model3))
+        acc3, sentence3 = self.validate_sentence()
+
+        sentence = zip(sentence1, sentence2, sentence3)
+        final = ""
+        for l in sentence:
+            c = Counter(l)
+            value, count = c.most_common()[0]
+            final += value
+
+        print(f"Final prediction in sentence:")
+        print(final)
+
+        correct = 0
+        total = 0
+        for p, c in zip(final, self.labels):
+            if p == c:
+                correct +=1
+            total += 1
+
+        acc = 100 * correct / total
+        print(f'Accuracy of the network on the {len(self.validloader)} test keys: {acc}%')
+
+
 
     def classify(self):
         '''Classify keystrokes'''
@@ -122,7 +168,7 @@ class ClassifyKeystrokes:
         optimizer = optim.Adam(self.net.parameters(), lr=0.000005)
         best_acc = 0
         best_model = None
-        for epoch in range(500):  # loop over the dataset multiple times
+        for epoch in range(250):  # loop over the dataset multiple times
             running_loss = 0.0
             for i, data in enumerate(self.trainloader, 0):
                 # get the inputs; data is a list of [inputs, labels]
@@ -158,10 +204,9 @@ class ClassifyKeystrokes:
             for data in self.validloader:
                 images, labels = data
                 outputs = self.net(images)
-                # print(images)
-                # print(f"outputs {outputs}")
+
                 _, predicted = torch.max(outputs.data, 1)
-                # print(predicted)
+
                 total += 1
                 correct += (predicted == labels).sum().item()
 
@@ -169,7 +214,9 @@ class ClassifyKeystrokes:
         print(f'Accuracy of the network on the {len(self.validloader)} test keys: {acc}%')
         return acc
 
+
     def validate_sentence(self):
+        char_predict = defaultdict(lambda: defaultdict(int))
         correct = 0
         total = 0
         sentence = ""
@@ -182,6 +229,7 @@ class ClassifyKeystrokes:
                 full_labels.append(outputs)
 
                 _, predicted = torch.max(outputs.data, 1)
+                char_predict[convertnumber(labels.data)][convertnumber(predicted)] += 1
                 sentence += convertnumber(predicted)
                 total += 1
                 correct += (predicted == labels).sum().item()
@@ -191,10 +239,11 @@ class ClassifyKeystrokes:
         print(f"Predicted sentence:")
         print(sentence)
         print("")
-        print("Apply corrections")
-        full_labels = np.stack(full_labels, axis=0)
-        final = self.correct_with_prob(full_labels)
-        return acc
+        # for char in char_predict:
+        #     sorted_char = sorted(char_predict[char].items(), key=operator.itemgetter(1))
+        #     print(f"most common mistake for char {char}: {sorted_char}")
+        print("")
+        return acc, sentence
 
     def savemodel(self):
         path = f"out/raw_sentence/models/fc_nn_model_{datetime.datetime.now().time()}.txt"

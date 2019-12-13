@@ -172,6 +172,7 @@ def main():
     plt.xlabel("Time")
     plt.ylabel("Amplitude")
     title = filepath.split("/")[-1]
+    plt.show()
     plt.savefig(f"fullfig_{title}.png")
     plt.close()
 
